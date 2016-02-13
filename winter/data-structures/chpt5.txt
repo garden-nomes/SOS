@@ -1,0 +1,129 @@
+Data Structures Chapter 5
+Noah Weiner
+
+5.1,2,8,11,17,19
+
+5.1	a	0
+		1 -> 4371
+		2
+		3 -> 1323 -> 6173
+		4 -> 4344
+		5
+		6
+		7
+		8
+		9 -> 4199 -> 9679 -> 1989
+
+	b	0 9679
+		1 4371
+		2 1989
+		3 1323
+		4 6173
+		5 4344
+		6
+		7
+		8
+		9 4199
+	
+	c	0 9679
+		1 4371
+		2 
+		3 1323
+		4 6173
+		5 4344
+		6 
+		7 
+		8 
+		9 4199
+		(1989 can't be inserted without increaseing the table size)
+
+	d	0 
+		1 4371
+		2 
+		3 1323
+		4 6173
+		5 9679
+		6 
+		7 1989
+		8 4344
+		9 4199
+
+5.2	a	0 			10
+		1			11 4371
+		2			12
+		3 1323		13 6173
+		4 4344		14
+		5			15
+		6			16
+		7			17
+		8			18
+		9 1989		19 4399 -> 9679
+
+	b	0 4199		10
+		1			11 4371
+		2			12
+		3 1323		13 6173
+		4 4344		14
+		5		 	15
+		6   		16
+		7   		17
+		8   		18
+		9 1989		19 9679
+
+	c	0 4199		10
+		1			11 4371
+		2			12
+		3 1323		13 6173
+		4 4344		14
+		5			15
+		6			16
+		7			17
+		8			18
+		9 1989		19 9679
+
+	d	0 4199		10
+		1			11 4371
+		2			12
+		3 1323		13 6173
+		4 4344		14
+		5			15
+		6			16
+		7			17
+		8			18
+		9 1989		19 9679
+
+5.8	No, as cubic probing can only guarantee a spot until sqrt(tableSize/3) spaces are full.
+
+	Proof:
+	assume 0 <= i, j <= sqrt(tableSize/3), i != j, and tableSize is prime
+
+	for the hash function to probe the same space twice:
+	             h(x) + i^3 = h(x) + j^3 (mod tableSize)
+	                    i^3 = j^3        (mod tableSize)
+	              i^3 - j^3 = 0          (mod tableSize)
+	(i - j)(i^2 + ij + j^2) = 0          (mod tableSize)
+
+	Since tableSize is prime, either (i - j) or (i^2 + ij + j^2) must equal 0 (mod
+	tableSize).  Because i != j, the first can't be true.  To prove that
+	i^2 + ij + j^2 != 0 (mod tableSize) we subsitute x for i and j and set it equal to
+	tableSize.
+
+	        x^2 + x*x + x^2 = tableSize
+			           3x^2 = tableSize
+					      x = sqrt(tableSize/3)
+	
+	Because 0 <= i, j <= sqrt(tableSize/3), and i != j, there is no combination of i and
+	j where i^2 + ij + j^2 will = 0 or be >= tableSize.
+
+
+5.11	Because 48,271 and 2^31-1 are relatively prime, this function produces an even
+		distribution of keys. This seems more efficient than quadratic hashing, but might
+		be more computationally expensive than double hashing.
+
+5.17	See 5-17.cpp
+
+5.19	a.	(A is a substitute for lambda)
+			1/(1-A)-A-ln(1-A) -- same as insertion
+
+		b.	Because an unsuccessful search will probe 1/(1-A) cells, as successful search
+			will have a cost of A-ln(1-A).
