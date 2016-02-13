@@ -1,0 +1,98 @@
+OS Winter Quarter
+Problem Set 1
+Noah Weiner
+
+Chapter 8
+
+1.	a.	The page number is extracted from the front of the virtual address.  The OS checks
+		whether the page is in memory and fetches the page if it isn't.  The page number
+		is then replaced with the frame number, turning it into a physical address.
+
+	b.	i.	7 * 1,024 + (1,052 % 1,024) = 7,196
+		ii.	page fault
+		iii.	5,499 % 1,024 = 379
+
+
+2.	a.	3 page fault will occur every 4 iterations of the command.
+
+	b.	Yes, by iterating i (the first index in the outside loop, the program will iterate
+		over contiguous memory instead of skipping over large chunks.
+
+	c.	3 page faults every 256 iterations.
+
+
+5.	Page Referenced      3 frames      4 frames
+
+          A             [A][ ][ ]    [A][ ][ ][ ]
+		  B             [A][B][ ]    [A][B][ ][ ]
+		  C             [A][B][C]    [A][B][C][ ]
+		  D            *[D][B][C]    [A][B][C][D]
+		  A            *[D][A][C]    [A][B][C][D]
+		  B            *[D][A][B]    [A][B][C][D]
+		  E            *[E][A][B]   *[E][B][C][D]
+		  A             [E][A][B]   *[E][A][C][D]
+		  B             [E][A][B]   *[E][A][B][D]
+		  C            *[E][C][B]   *[E][A][B][C]
+		  D            *[E][C][D]   *[D][A][B][C]
+		  E             [E][C][D]   *[D][E][B][C]
+		               6 faults     6 faults
+
+	* page fault
+
+
+6.	a.	Page #      Frames        b.   Frames
+		            (LRU)              (FIFO)
+		  1       [1][ ][ ][ ]*      [1][ ][ ][ ]*
+		  0       [1][0][ ][ ]*      [1][0][ ][ ]*
+		  2       [1][0][2][ ]*      [1][0][2][ ]*
+		  2       [1][0][2][ ]       [1][0][2][ ]
+		  1       [1][0][2][ ]       [1][0][2][ ]
+		  7       [1][0][2][7]*      [1][0][2][7]*
+		  6       [1][6][2][7]*      [6][0][2][7]*
+		  7       [1][6][2][7]       [6][0][2][7]
+		  0       [1][6][0][7]*      [6][0][2][7]
+		  1       [1][6][0][7]       [6][1][2][7]*
+		  2       [1][2][0][7]*      [6][1][2][7]
+		  0       [1][2][0][7]       [6][1][0][7]*
+		  3       [1][2][0][3]*      [6][1][0][3]*
+		  0       [1][2][0][3]       [6][1][0][3]
+		  4       [4][2][0][3]*      [4][1][0][3]*
+		  5       [4][5][0][3]*      [4][5][0][3]*
+		  1       [4][5][0][1]*      [4][5][1][3]*
+		  5       [4][5][0][1]       [4][5][1][3]
+		  2       [4][5][2][1]*      [4][5][1][2]*
+		  4       [4][5][2][1]       [4][5][1][2]
+		  5       [4][5][2][1]       [4][5][1][2]
+		  6       [4][5][2][6]*      [6][5][1][2]*
+		  7       [4][5][7][6]*      [6][7][1][2]*
+		  6       [4][5][7][6]       [6][7][1][2]
+		  7       [4][5][7][6]       [6][7][1][2]
+		  2       [2][5][7][6]*      [6][7][1][2]
+		  4       [2][4][7][6]*      [6][7][4][2]*
+		  2       [2][4][7][6]       [6][7][4][2]
+		  7       [2][4][7][6]       [6][7][4][2]
+		  3       [2][4][7][3]*      [6][7][4][3]*
+		  3       [2][4][7][3]       [6][7][4][3]
+		  2       [2][4][7][3]       [2][7][4][3]*
+		  3       [2][4][7][3]       [2][7][4][3]
+	
+		LRU hit ratio = 16 / 33 = ~ 48.48%
+		FIFO hit ratio = 16 / 33 = ~ 48.48%
+
+	c.	With this particular trace, FIFO and LRU performed equally as well.
+
+
+11.	a.	200 ns (page table access) + 200 ns (physical address access) = 400 ns total
+
+	b.	0.85 * 220 + 0.15 * 420 = 250 ns
+
+	c.	The TLB hit rate increases the proportion of address translations that don't
+		require a page table lookup, meaning the larger the hit rate the close the
+		EMAT will slide towards the access time without a page table lookup.
+
+18.	a.	5-bit page # + 11-bit offset
+
+	b.	width = 1 modify bit + 1 present bit + 9-bit frame # = 11-bits
+		length = 32
+
+	c.	The frame number decreases by 1 bit, so the width is 10 bits
