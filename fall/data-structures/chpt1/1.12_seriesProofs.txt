@@ -1,0 +1,28 @@
+1.12
+
+a.
+
+Let the sum for i=1 to N of 2i-1 = S
+
+S = 2 - 1 + 2(2) - 1 + ... + 2(N) - 1
+S = 2(1 + 2 + 3 + ... + N) - N
+S = 2(N(N + 1) / 2) - N
+S = 2N(N + 1) / 2 - N
+S = (2N^2 + 2N) / 2 - N
+S = (2N^2 + 2N - 2N) / 2
+S = 2N^2 / 2
+S = N^2
+
+b.
+
+(sum of i=0 to N of i)^2 = (N(N + 1) / 2)^2
+
+Basis: sum of i=0 to 1 of i = (1(1 + 1) / 2)^2 = 1
+
+Assume the sum of i=0 to k of i^3 = (k(k + 1) / 2)^2
+Prove for N = k + 1:
+Sum of i=0 to k+1 for i^3 = (k(k + 1) / 2)^2 + (k + 1)^3
+                          = (k + 1)^2 * ((k^2 / 2)^2 + (k + 1))
+						  = ((k + 1)^2 * (k^2 + 4k + 4)) / 4
+						  = (k + 1)^2 * (k + 2)^2 / 4
+						  = ((k + 1)(k + 2) / 2)^2

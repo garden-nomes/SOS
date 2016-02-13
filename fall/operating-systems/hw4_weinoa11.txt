@@ -1,0 +1,41 @@
+Operating Systems Week 4 Homework - Noah Weiner
+
+4.1
+
+Because mode switch is a hardware operation, it operates the same for threads and processes.
+
+4.2
+
+The kernel can't differentiate threads, so when one thread makes a system call it only sees the entire process making a system call, and so blocks the process and (unknown to the kernel) all threads within that process.
+
+4.3
+
+a. The OS no longer has a nice container to manage windowing, so processes must interact with the OS to create and manage user interfaces.
+
+b. The process level
+
+4.4
+
+This allows other threads within the same process to run while the thread waits to be unblocked.
+
+4.5
+
+No, termination of a process terminates all threads within that process.
+
+4.7
+
+a. Count the number of positive values in a list.
+
+b. No, this should run smoothly.
+
+4.8
+
+If thread B tries to write to global_positives after thread A has saved the state of global_positives but before it writes back to global_positives, then any changes thread B makes will be lost.
+
+4.11
+
+a. This allows ULTs to switch without having to switch execution mode.
+
+b. In order to facilitate multiple ULTs running on a single LWP, ULTs must be able to change state independently of the LWP.
+
+c. A ULT can be stopped, sleeping, runnable, or active. While active, the ULT's LWP can be stopped, blocked, runnable, or running.

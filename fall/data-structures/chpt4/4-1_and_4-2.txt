@@ -1,0 +1,81 @@
+4.1	a.	A
+	b.	G, H, I, L, M, and K
+
+4.2
+	Node A:	Parent: none
+			Children: B, C
+			Siblings: none
+			Depth: 0
+			Height: 4
+
+	Node B:	Parent: A
+			Children: D, E
+			Siblings: C
+			Depth: 1
+			Height: 3
+
+	Node C:	Parent: A
+			Children: F
+			Siblings: none
+			Depth: 1
+			Height: 2
+
+	Node D:	Parent: B
+			Children: G, H
+			Siblings: E
+			Depth: 2
+			Height: 1
+
+	Node E:	Parent: B
+			Children: I, J
+			Siblings: D
+			Depth: 2
+			Height: 2
+
+	Node F:	Parent: C
+			Children: K
+			Siblings: none
+			Depth: 2
+			Height: 1
+
+	Node G:	Parent: D
+			Children: none
+			Siblings: D
+			Depth: 3
+			Height: 0
+
+	Node H:	Parent: D
+			Children: none
+			Siblings: G
+			Depth: 3
+			Height: 0
+
+	Node I:	Parent: E
+			Children: none
+			Siblings: J
+			Depth: 3
+			Height: 0
+
+	Node J:	Parent: E
+			Children: L, M
+			Siblings: I
+			Depth: 3
+			Height: 1
+
+	Node K:	Parent: F
+			Children: none
+			Siblings: none
+			Depth: 3
+			Height: 0
+
+	Node L:	Parent: J
+			Children: none
+			Siblings: M
+			Depth: 4
+			Height: 0
+
+	Node M:	Parent: J
+			Children: none
+			Siblings: L
+			Depth: 4
+			Height: 0

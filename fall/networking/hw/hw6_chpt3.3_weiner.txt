@@ -1,0 +1,37 @@
+Networking Chpt 3 part 3 Homework - Noah Weiner
+
+P28	The value of rwnd in the ACKs host B sends will shrink, eventually throttling
+	host A's send rate when it reaches 0.
+
+P29	a.	So that when the server receives the next ACK, it can use the server
+		sequence number to determine that this is the second ACK without using
+		any allocated memory.
+	b.	Only if the attacker knows the hash function.  The attacker must use a
+		different source port or ip for each individual connection, which are part
+		of the hash.
+	c.	Yes.  Because the hash is a function of the soure and dest ip and port, the
+		attacker can collect sequence numbers for every connection they wish to use
+		over a broader period of time, and then flood the system later using those
+		sequence numbers all at once.
+
+P41	The AIAD approach would not lead to equal sharing.  I'd rather not draw an ASCII diagram, so I'll explain: assuming both connections experience a packet loss event at the same time, they increase over the same p periods. l However, one conecction may have a lrger congestion window than the other.  With multiplicative decrase, this connection willshrink its congestion window by a larger amount.  However, with addidtive decrease, both connections will shrink their congestion window by the same amount, so the advantaged connection will maintain that lead.
+
+P43	Because the link can only transfer data from the send buffer to the internet at
+	1/10th the speed the process can feed data into the buffer, and the buffer can
+	only hold 1% of the file, the transfer will be throttled by the speed at which
+	the link can clear out the buffer.
+
+P46	a.	1500 kb
+	b.	Avg cwnd: 1125 kb
+		Avg throughput: 7.5Mbps 
+	c.	74.55 s
+
+P50	a.	I believe the circumstances described by the problem are impossible.  At
+		time 0, both connections cwnd is 10.  This means that connection 1, with
+		a RTT of 50 msec, is sending 200 segments/second.  Connection 2, with a
+		RTT of 100 msec, is sending 100 segments/second.  The congested link is
+		limited to 30 segments/second, so this is clearly a typo.
+	b.	However, I don't believe this connection will be fair in the long run.
+		Because connection 1 has a much shorter RTT, its window size will
+		increase much faster than connection 2, meaning it will grab a larger
+		share of the throughput each time the throughput limit is reached.

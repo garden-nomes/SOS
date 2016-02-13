@@ -1,0 +1,256 @@
+Networking Homework 3 - Noah Weiner
+
+Chpt 2
+
+R19
+Yes, the mailserver's RR would have type MX.
+
+R21
+Not necessarily.  It depends on Alice's status in Bob's list of uploaders: if Alice becomes one of Bob's top uploaders, Bob will start sending chunks back to Alice.
+
+R24
+For a mesh network, the disadvantage is that each peer must keep track of all other peers, but the advantage is that data can be transmitted directly from peer to peer.
+
+For a circular network, each peer needs to only keep track of 2 other peers (actually 3 to maintain a secure chain), but must traverse at most half the network to send or receive data.
+
+P18
+a. A whois database stores the registered users or assignees of an internet resource such as domain name or IP address.
+
+b.
+A.GTLD-SERVERS.NET - whois.iana.org
+NS.ICANN.ORG - whois.icann.org
+
+c. The two nameservers from (b) didn't support recursion while my local one did, and only the first one seemed to have records for google.com.
+
+d. Evergreen.edu has 5 different ip addresses.
+
+e. It looks to be 198.60.143.0 - 198.60.143.255
+
+f. An attacker could obtain an organization's ip range to map out all machines in that range, or obtain the name/contant information of system administrators to use in phishing or other scams.
+
+g. Whois databases facilitate transparency on the internet, assiting in the purchasing of domain names and in tracing malicious web domains to their owner.
+
+P19
+a.
+; <<>> DiG 9.7.3 <<>> evergreen.edu +trace
+;; global options: +cmd
+.			126144	IN	NS	l.root-servers.net.
+.			126144	IN	NS	m.root-servers.net.
+.			126144	IN	NS	a.root-servers.net.
+.			126144	IN	NS	b.root-servers.net.
+.			126144	IN	NS	c.root-servers.net.
+.			126144	IN	NS	d.root-servers.net.
+.			126144	IN	NS	e.root-servers.net.
+.			126144	IN	NS	f.root-servers.net.
+.			126144	IN	NS	g.root-servers.net.
+.			126144	IN	NS	h.root-servers.net.
+.			126144	IN	NS	i.root-servers.net.
+.			126144	IN	NS	j.root-servers.net.
+.			126144	IN	NS	k.root-servers.net.
+;; Received 505 bytes from 10.12.1.10#53(10.12.1.10) in 5 ms
+
+edu.			172800	IN	NS	g.edu-servers.net.
+edu.			172800	IN	NS	l.edu-servers.net.
+edu.			172800	IN	NS	c.edu-servers.net.
+edu.			172800	IN	NS	f.edu-servers.net.
+edu.			172800	IN	NS	d.edu-servers.net.
+edu.			172800	IN	NS	a.edu-servers.net.
+;; Received 266 bytes from 192.112.36.4#53(g.root-servers.net) in 63 ms
+
+evergreen.edu.		172800	IN	NS	cousteau.evergreen.edu.
+evergreen.edu.		172800	IN	NS	ruler.wa-k20.net.
+evergreen.edu.		172800	IN	NS	apple.wa-k20.net.
+;; Received 152 bytes from 192.5.6.30#53(a.edu-servers.net) in 95 ms
+
+evergreen.edu.		18000	IN	A	192.211.16.77
+evergreen.edu.		18000	IN	NS	ruler.wa-k20.net.
+evergreen.edu.		18000	IN	NS	cousteau.evergreen.edu.
+evergreen.edu.		18000	IN	NS	apple.wa-k20.net.
+;; Received 168 bytes from 68.179.206.139#53(ruler.wa-k20.net) in 11 ms
+
+b.
+weinoa11@ada:hw$ dig google.com +trace
+
+; <<>> DiG 9.7.3 <<>> google.com +trace
+;; global options: +cmd
+.			126103	IN	NS	m.root-servers.net.
+.			126103	IN	NS	a.root-servers.net.
+.			126103	IN	NS	b.root-servers.net.
+.			126103	IN	NS	c.root-servers.net.
+.			126103	IN	NS	d.root-servers.net.
+.			126103	IN	NS	e.root-servers.net.
+.			126103	IN	NS	f.root-servers.net.
+.			126103	IN	NS	g.root-servers.net.
+.			126103	IN	NS	h.root-servers.net.
+.			126103	IN	NS	i.root-servers.net.
+.			126103	IN	NS	j.root-servers.net.
+.			126103	IN	NS	k.root-servers.net.
+.			126103	IN	NS	l.root-servers.net.
+;; Received 493 bytes from 10.12.1.10#53(10.12.1.10) in 6 ms
+
+com.			172800	IN	NS	l.gtld-servers.net.
+com.			172800	IN	NS	e.gtld-servers.net.
+com.			172800	IN	NS	h.gtld-servers.net.
+com.			172800	IN	NS	a.gtld-servers.net.
+com.			172800	IN	NS	k.gtld-servers.net.
+com.			172800	IN	NS	d.gtld-servers.net.
+com.			172800	IN	NS	i.gtld-servers.net.
+com.			172800	IN	NS	g.gtld-servers.net.
+com.			172800	IN	NS	b.gtld-servers.net.
+com.			172800	IN	NS	m.gtld-servers.net.
+com.			172800	IN	NS	f.gtld-servers.net.
+com.			172800	IN	NS	c.gtld-servers.net.
+com.			172800	IN	NS	j.gtld-servers.net.
+;; Received 488 bytes from 199.7.91.13#53(d.root-servers.net) in 69 ms
+
+google.com.		172800	IN	NS	ns2.google.com.
+google.com.		172800	IN	NS	ns1.google.com.
+google.com.		172800	IN	NS	ns3.google.com.
+google.com.		172800	IN	NS	ns4.google.com.
+;; Received 164 bytes from 192.43.172.30#53(i.gtld-servers.net) in 145 ms
+
+google.com.		300	IN	A	74.125.28.138
+google.com.		300	IN	A	74.125.28.102
+google.com.		300	IN	A	74.125.28.101
+google.com.		300	IN	A	74.125.28.100
+google.com.		300	IN	A	74.125.28.113
+google.com.		300	IN	A	74.125.28.139
+;; Received 124 bytes from 216.239.36.10#53(ns3.google.com) in 72 ms
+
+weinoa11@ada:hw$ dig yahoo.com +trace
+
+; <<>> DiG 9.7.3 <<>> yahoo.com +trace
+;; global options: +cmd
+.			126095	IN	NS	a.root-servers.net.
+.			126095	IN	NS	b.root-servers.net.
+.			126095	IN	NS	c.root-servers.net.
+.			126095	IN	NS	d.root-servers.net.
+.			126095	IN	NS	e.root-servers.net.
+.			126095	IN	NS	f.root-servers.net.
+.			126095	IN	NS	g.root-servers.net.
+.			126095	IN	NS	h.root-servers.net.
+.			126095	IN	NS	i.root-servers.net.
+.			126095	IN	NS	j.root-servers.net.
+.			126095	IN	NS	k.root-servers.net.
+.			126095	IN	NS	l.root-servers.net.
+.			126095	IN	NS	m.root-servers.net.
+;; Received 509 bytes from 10.12.1.10#53(10.12.1.10) in 4 ms
+
+com.			172800	IN	NS	a.gtld-servers.net.
+com.			172800	IN	NS	b.gtld-servers.net.
+com.			172800	IN	NS	c.gtld-servers.net.
+com.			172800	IN	NS	d.gtld-servers.net.
+com.			172800	IN	NS	e.gtld-servers.net.
+com.			172800	IN	NS	f.gtld-servers.net.
+com.			172800	IN	NS	g.gtld-servers.net.
+com.			172800	IN	NS	h.gtld-servers.net.
+com.			172800	IN	NS	i.gtld-servers.net.
+com.			172800	IN	NS	j.gtld-servers.net.
+com.			172800	IN	NS	k.gtld-servers.net.
+com.			172800	IN	NS	l.gtld-servers.net.
+com.			172800	IN	NS	m.gtld-servers.net.
+;; Received 487 bytes from 199.7.83.42#53(l.root-servers.net) in 148 ms
+
+yahoo.com.		172800	IN	NS	ns1.yahoo.com.
+yahoo.com.		172800	IN	NS	ns5.yahoo.com.
+yahoo.com.		172800	IN	NS	ns2.yahoo.com.
+yahoo.com.		172800	IN	NS	ns3.yahoo.com.
+yahoo.com.		172800	IN	NS	ns4.yahoo.com.
+;; Received 281 bytes from 192.12.94.30#53(e.gtld-servers.net) in 195 ms
+
+yahoo.com.		1800	IN	A	206.190.36.45
+yahoo.com.		1800	IN	A	98.139.183.24
+yahoo.com.		1800	IN	A	98.138.253.109
+yahoo.com.		172800	IN	NS	ns2.yahoo.com.
+yahoo.com.		172800	IN	NS	ns3.yahoo.com.
+yahoo.com.		172800	IN	NS	ns4.yahoo.com.
+yahoo.com.		172800	IN	NS	ns5.yahoo.com.
+yahoo.com.		172800	IN	NS	ns6.yahoo.com.
+yahoo.com.		172800	IN	NS	ns1.yahoo.com.
+;; Received 391 bytes from 119.160.247.124#53(ns5.yahoo.com) in 171 ms
+
+weinoa11@ada:hw$ dig amazon.com +trace
+
+; <<>> DiG 9.7.3 <<>> amazon.com +trace
+;; global options: +cmd
+.			126086	IN	NS	b.root-servers.net.
+.			126086	IN	NS	c.root-servers.net.
+.			126086	IN	NS	d.root-servers.net.
+.			126086	IN	NS	e.root-servers.net.
+.			126086	IN	NS	f.root-servers.net.
+.			126086	IN	NS	g.root-servers.net.
+.			126086	IN	NS	h.root-servers.net.
+.			126086	IN	NS	i.root-servers.net.
+.			126086	IN	NS	j.root-servers.net.
+.			126086	IN	NS	k.root-servers.net.
+.			126086	IN	NS	l.root-servers.net.
+.			126086	IN	NS	m.root-servers.net.
+.			126086	IN	NS	a.root-servers.net.
+;; Received 509 bytes from 10.12.1.10#53(10.12.1.10) in 4 ms
+
+com.			172800	IN	NS	a.gtld-servers.net.
+com.			172800	IN	NS	i.gtld-servers.net.
+com.			172800	IN	NS	l.gtld-servers.net.
+com.			172800	IN	NS	e.gtld-servers.net.
+com.			172800	IN	NS	b.gtld-servers.net.
+com.			172800	IN	NS	k.gtld-servers.net.
+com.			172800	IN	NS	f.gtld-servers.net.
+com.			172800	IN	NS	j.gtld-servers.net.
+com.			172800	IN	NS	g.gtld-servers.net.
+com.			172800	IN	NS	c.gtld-servers.net.
+com.			172800	IN	NS	d.gtld-servers.net.
+com.			172800	IN	NS	m.gtld-servers.net.
+com.			172800	IN	NS	h.gtld-servers.net.
+;; Received 500 bytes from 193.0.14.129#53(k.root-servers.net) in 148 ms
+
+amazon.com.		172800	IN	NS	pdns1.ultradns.net.
+amazon.com.		172800	IN	NS	pdns6.ultradns.co.uk.
+amazon.com.		172800	IN	NS	ns1.p31.dynect.net.
+amazon.com.		172800	IN	NS	ns3.p31.dynect.net.
+amazon.com.		172800	IN	NS	ns2.p31.dynect.net.
+amazon.com.		172800	IN	NS	ns4.p31.dynect.net.
+;; Received 285 bytes from 192.55.83.30#53(m.gtld-servers.net) in 201 ms
+
+amazon.com.		60	IN	A	176.32.103.205
+amazon.com.		60	IN	A	205.251.242.54
+amazon.com.		60	IN	A	176.32.98.166
+amazon.com.		3600	IN	NS	pdns6.ultradns.co.uk.
+amazon.com.		3600	IN	NS	pdns1.ultradns.net.
+amazon.com.		3600	IN	NS	ns3.p31.dynect.net.
+amazon.com.		3600	IN	NS	ns1.p31.dynect.net.
+amazon.com.		3600	IN	NS	ns4.p31.dynect.net.
+amazon.com.		3600	IN	NS	ns2.p31.dynect.net.
+;; Received 225 bytes from 208.78.70.31#53(ns1.p31.dynect.net) in 5 ms
+
+P21
+If you know the typical DNS response time for a hostname, you could send a DNS query and if the response time is shorter than means that address has recently been cached.
+
+P23.
+a. The download is throttled by the servers ability to upload to all clients, meaning that the minimum transfer time is denoted by the time it takes for the server to upload to all clients NF/u^s.
+
+b. The download is throttled by the slowest clients download speed, meaning that the minimum transfer time is denoted by the time it takes for the slowest client to download the file F/d^min.
+
+c. The minimum transfer time will either be the amount of time it takes for the server to upload the file or the time it takes for the slowest client to download the file, whichever is longer, denoted max{ NF/u^s, F/d^min }
+
+P24
+a. The combined upload speed of the server and all peers is faster than the upload speed of the server to the first peer, so the transfer will be throttle by the time it takes for the server to upload the file, F/u^s
+
+b. The server has an upload rate faster than the total upload speed of the system as a whole, so the transfer is throttled the the time it takes the system as a whole to upload the file to all peers.
+
+c. The transfer will be throttled either by the time it takes for the server to upload the file to a single peer, or the time it takes for the entire system to upload the file to all peers.
+
+P29
+You would use the function to evaluate the distance from each peer to the key, and assign the key to the peer with the shortest distance.
+
+P31
+a. TCPClient.py times out when it tries to connect to the server, because the server isn't running.
+
+b. UDPClient.py times out waiting for a response from the server, because the server isn't running.
+
+c. The same as if the server wasn't running.
+
+P32
+UDPServer.py doesn't need to change, since it's still receiving packets on the same port and sends packets back to the port it received them from. UDClient sends the packet from port 5432 to port 12000.  Before, UDPClient sent the packet from a randomly assigned port to port 12000 on the server. 
+
+P33
+The advantage is not having to open/close connections constantly, but the disadvantage is that the browser has to manage all sockets in order to prevent connections from being left open.

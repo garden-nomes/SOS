@@ -1,0 +1,16 @@
+1.8
+
+a.
+
+The sum of 1/4^i from i=0 to infinity is 1/(1-A)
+1/(1-1/4) = 4/3
+
+b.
+
+The sum of i/4^i from i=0 to inifity A/(A-1)^2
+4/3^2 = 4/9
+
+c.
+
+Sum i=0 to infinity of i^2/A^i = (2A/(A-1)^2 + A/(A-1)) / (A - 1)
+Sum i=0 to inifnity of i^2/4^i = 20/27

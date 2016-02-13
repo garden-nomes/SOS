@@ -1,0 +1,102 @@
+Operating Systems Homework 1 - Noah Weiner
+
+1.1 Here goes some ASCII art:
+
+Fetch								Execute
+
+1.
+Memory			CPU Registers		Memory          CPU Registers
+300 [3005]		PC [300]			300 [3005]      PC [301]
+301 [5940]		AC [    ]			301 [5940]      AC [0003]
+302 [7006]		IR [3005]			302 [7006]      IR [3005]
+...									...
+940 [0002]							940 [0002]
+
+dev5 [0003]							dev5 [0003]
+dev6 [    ]							dev6 [    ]
+
+2.
+Memory			CPU Registers		Memory          CPU Registers
+300 [3005]		PC [301]			300 [3005]      PC [302]
+301 [5940]		AC [0003]			301 [5940]      AC [0005]
+302 [7006]		IR [5940]			302 [7006]      IR [5940]
+...									...
+940 [0002]							940 [0002]
+
+dev5 [0003]							dev5 [0003]
+dev6 [    ]							dev6 [    ]
+
+3.
+Memory			CPU Registers		Memory          CPU Registers
+300 [3005]		PC [302]			300 [3005]      PC [303]
+301 [5940]		AC [0005]			301 [5940]      AC [0005]
+302 [7006]		IR [7006]			302 [7006]      IR [7006]
+...									...
+940 [0002]							940 [0002]
+
+dev5 [0003]							dev5 [0003]
+dev6 [    ]							dev6 [0005]
+
+
+1.2 And even more:
+
+Fetch								Execute
+
+1.
+Memory			CPU Registers		Memory          CPU Registers
+300 [1940]		PC [300]			300 [1940]      PC [301]
+301 [5941]		AC [    ]			301 [5941]      AC [0003]
+302 [2941]		IR [1940]			302 [2941]      IR [1940]
+...						MAR [940]			...							MAR [940]
+940 [0003]		MBR [    ]		940 [0003]			MBR [0003]
+941 [0002]							941 [0002]
+
+2.
+Memory			CPU Registers		Memory          CPU Registers
+300 [1940]		PC [301]			300 [1940]      PC [302]
+301 [5941]		AC [0003]			301 [5941]      AC [0005]
+302 [2941]		IR [5941]			302 [2941]      IR [5941]
+...						MAR [941]			...							MAR [941]
+940 [0003]		MBR [0003]		940 [0003]			MBR [0002]
+941 [0002]							941 [0002]
+
+3.
+Memory			CPU Registers		Memory          CPU Registers
+300 [1940]		PC [302]			300 [1940]      PC [303]
+301 [5941]		AC [0005]			301 [5941]      AC [0005]
+302 [2941]		IR [2941]			302 [2941]      IR [2941]
+...						MAR [941]			...							MAR [941]
+940 [0003]		MBR [0002]		940 [0003]			MBR [0002]
+941 [0002]							941 [0005]
+
+
+1.3
+a. 3 bytes = 24 bit address, 2^24 = 16,777,216 memory addresses
+   16,777,216 * 4 bytes = 67,108,864 bytes memory capacity
+
+b. I couldn't find a reference to a "microprocessor bus", "local address bus", or "local data bus" anywhere in the text, so I'm going to guess the size of those busses is the amount of data the processor can transfer between registers at a time, the address bus tranfers data between the IR and MAR, and the data bus is between the MBR and the AC.
+
+With a 32-bit local address bus, the processor would be able to tranfer addresses between the IR and MAR much faster, since memory addresses are only 24 bits.  I the address bus were 16 bits, it would take two transfers to order to communicate the whole address.  With at 16-bit data bus, it would take two transfers to communicate data between the MBR and AC.
+
+c. The program counter needs 24 bits, and the instruction register needs 32.
+
+
+1.4
+a. 2^16 memory addresses * 2 bytes = 131,072 possible bytes of addressable memory
+
+b. 2^16 * 1 byte = 65,536 bytes of addressable memory
+
+c. an I/0BR and I/OAR.
+
+d. 2^8 = 256 possible I/O ports.  The same is true for 16-bit I/O ports, assuming that 16 bits means the port can handle 16 bits of data, and not that it has a 16 bit address.
+
+1.6
+a. The CPU can watch the FGI bit, and when it is flipped read the INPR to get input.  For ouput, the CPU can write an 8-bit word to the OUTR and flip the FGO bit.
+
+b. If the IEN bit is flipped, the processor can continue processing until it gets an interrupt signal to read input rather than watching the FGI bit.
+
+
+1.10
+a. As the program loops through i, it is accessing contiguous elements in the array.
+
+b. Within the j loop, the program repeatedly reads from and writes to the same location in the memory 10 times.

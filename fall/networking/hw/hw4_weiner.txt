@@ -1,0 +1,49 @@
+Networking Week 4 Homework - Noah Weiner
+
+Chpt 3
+------
+R3
+From host B to A,
+Source port is y
+destination port is x
+
+R4
+The developer might require finer control over the timing of packets, as in video conferencing or networked multiplayer games.
+
+R5
+Because reliable data transfer is required to provide high definition video, as dropped packets will result in glitchy video.  The application doesn't care about congestion control because the video doesn't have to play in real time, so it can buffer video and then play it.
+
+R7
+Both hosts' packets will be directed to the same socket.  The process on host C can use the source ip address and socket number to differentiate between hosts.
+
+R8
+No, requests from different hosts are demultiplexed to different sockets.  Both sockets have the same port number (80), but the operating system uses the source ip to differentiate between sockets.
+
+P1
+a. Source: 17592, Destination: 23
+b. Source: 15746, Destination: 23
+c. Source: 23, Destination: 17592
+d. Source: 23, Destination: 15746
+e. It is possible.
+d. It isn't possible since only one process can use a port on a host at a time.
+
+P3
+01010011
+01100110 +
+----------
+10111001
+01110100 +
+----------
+00101110
+
+11010001 <-----
+
+Taking the 1's complement allows the receiver to add together all three words and the checksum, with the result being all 1s if there are no errors.
+
+A 1-bit error will detected, as there is no way that won't affect the sum.  With a 2-bit error, if both bits are in the same location in different words then the two errors won't affect the sum.
+
+P5
+No, it is possible for errors to go undetected if they occur in a way that doesn't affect the sum.
+
+P6
+If the receiver sends a NAK for an out-of-sequence packet, the sender will just resend that same packet, resulting in the receiver sending another NAK and so on.

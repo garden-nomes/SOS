@@ -1,0 +1,70 @@
+Chapter 4 part 1 HW
+Noah Weiner
+
+R7	So that the link can forward packets without contacting the centralized routing
+	processor for each packet.
+
+R16	Assuming 20-byte TCP and IP headers, each packet will about 50% data and 50% headers.
+
+P3	VC Network:
+		Incoming interface: the link the packet arrived from
+		Incoming VC #: the virtual circuit number the packet is stamped with
+		Outgoing interface: the link to send the packet to
+		Outgoing VC #: the virtual circuit number to stamp the packet with (replacing
+			the incoming VC #)
+
+	Datagram Network:
+		Prefix: the router matches the address with the longest prefix that can can describe
+			it.
+		Link interface: the output link to forward the packet to
+
+P4	a.
+		prefix		interface
+		H3			3
+		otherwise	4
+
+	b.	You can't
+	c.
+			Incoming			Outgoing
+		Interface	VC#		Interface	VC#
+		1			22		3			12
+		2			43		4			45
+	d.
+					Router B
+			Incoming			Outgoing
+		Interface	VC#		Interface	VC#
+		1			12		2			6
+
+					Router C
+			Incoming			Outgoing
+		Interface	VC#		Interface	VC#
+		1			45		2			7
+
+					Router D
+			Incoming			Outgoing
+		Interface	VC#		Interface	VC#
+		1			6		3			8
+		2			7		3			8
+
+P7	a.	no
+	b.	yes
+	c.	no
+
+P10	a.
+		Prefix					Interface
+		1110 0000 00			0
+		1110 0000 0100 0000		1
+		1110 000				2
+		1110 0001 1				3
+		otherwise				3
+	b.
+		11001000 10010001 01010001 01010101
+			The address matches none of the prefixes, so it is sent to 3.
+
+		11100001 01000000 11000011 00111100
+			The address matches the third prefix in the table, so it is sent to 2.
+
+		11100001 10000000 00010001 01110111
+			The address matches the fourth entry in the table, so it goes to 3.
+		
+

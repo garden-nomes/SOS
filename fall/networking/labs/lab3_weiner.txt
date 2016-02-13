@@ -1,0 +1,29 @@
+Networking Lab 3 - Noah Weiner
+
+1. www.worldjournal.com - 104.25.196.20
+2. www.ox.ac.uk - nighthawk.dns.ox.ac.uk
+3. The nameserver times out, Oxford's nameserver denies outside requests it isn't the authoritative nameserver for.
+
+4. UDP
+5. 53 for both
+6. Yes
+7. Type A, with no responses
+8. 3 answers
+9. Yes, the first answer
+10. No
+
+11. 53
+12. 10.12.1.3, it is the same
+13. Type A, no answers
+14. 3 answers, the available servers
+15. No
+
+16. 10.12.1.3, it is the same
+17. Type NS, no answers
+18. www.mit.edu.edgekey.net, no ip address
+19. No
+
+20. 216.239.38.10, it corresponds to the nameserver requested
+21. Type A, no answers
+22. No answers, the request was refused
+23. No

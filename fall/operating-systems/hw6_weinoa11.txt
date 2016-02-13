@@ -1,0 +1,106 @@
+Operating Systems Chpt 6 Assignment - Noah Weiner
+
+6.1	Mutual Exclusion: the cars can't crash into each other.
+	Hold-and-wait: the cars will each wait until the intersection is clear.
+	No Preemption: none of the cars will back up once in the intersection.
+	Circular wait: each of the cars will wait on the car to its right.
+
+6.2	Prevention: change the law so that the northernmost car goes first.
+	Avoidance: have a traffic flagger who notes the deadlock and flags the north-south
+		cars first, then east-west.
+	Detection: have a flagger who allows all the cars to enter the intersection until
+		they come to a standstill, then forces one car to back out of the intersection.
+
+6.4	Although all the conditions for the possibility of deadlock are present, there is
+	no circular waiting so deadlock is avoided.
+
+6.5	a.	Resource	Total	Allocated	Total-Allocated
+		A			15		9			6
+		B			6		3			3
+		C			9		4			5
+		D			10		6			4
+
+	b.	Process	A	B	C	D
+		P0		7	5	3	4
+		P1		2	1	2	2
+		P2		3	4	4	3
+		P3		2	3	3	1
+		P4		4	1	2	1
+		P5		3	4	3	3
+
+	c.	The state is safe because P1, P2, P3, P4, and P5 can all run with current avail-
+		able resources.
+
+					Available array (A, B, C, D)
+		P1 runs:	(6, 4, 6, 5)
+		P2 runs:	(10, 5, 6, 7)
+		P3 runs:	(11, 5, 6, 8)
+		P4 runs:	(12, 6, 6, 8)
+		P5 runs:	(13, 6, 7, 9)
+		P0 runs:	(15, 6, 9, 10)
+
+	d.	Sure.  There are still other processes that are safe to run.
+
+6.6	a.	+------+        +------+        +------+
+		|  P0  |  +-----+  P1  <-----+ ++  P2  |
+		+^-^-+-+  |     +-----^+     | |+-^---^+
+		 | | |    |           | +------+  |   |
+		 | | +---------+      | |    |    |   |
+		 | +----+ |    | +----------------+   |
+		 |      | |    | |    | |    |        |
+		 |      | |    | |    | |    |        |
+		++--+  ++-v+  +v-++  ++-v+  ++--+  +--++
+		| A |  | B |  | C |  | D |  | E |  | F |
+		+---+  +---+  +---+  +---+  +---+  +---+
+
+	b.	P0: get(A); get(C); get(B);
+		P1:	get(E); get(D); get(B);
+		P2: get(F); get(C); get(D);
+
+6.11	a.	safe: P2, P1, P3, P4
+		b.	unsafe:
+			Process	Alloc
+			P1		45
+			P2		40
+			P3		15
+			P4		35
+
+6.14	a.	Yes
+			P1			P2				S	R
+										1	1
+			semWait(S);					0	1
+						semWait(R);		0	0
+			semWait(R);					0	0
+						semWait(S);		0	0
+
+		b.	No (I think)
+
+6.15	1 unit (starting with P0, P1 then P0 then P3 then P2)
+
+6.16	a.	Ordering approaches by concurrency:
+
+			1.	Detect deadlock and roll back - this allows all threads to proceed without
+					waiting.
+			2.	Detect deadlock and kill thread - this also allows all threads to proceed
+					proceed without waiting, but the thread might have to restart.
+			3.	Banker's algorithm - this might prevent some threads from running
+					concurrently that would otherwise be able to.
+			4.	Resource ordering - this might mean that that resources are being held but
+					not fully utilized.
+			5.	Reserve all resources in advance - this would exclude programs from running
+					concurrently that use the same resources.
+			6.	Restart thread on wait - this would essentially mean a thread would restart
+					until all requested resources happen to be available at the right time.	
+
+		b. Ordering approaches by efficiency:
+
+			1.	Resource ordering - this has essentially no overhead on the part of the
+					processor, since deadlock is guaranteed not to happen.
+			2.	Reserve all resources in advance - the processor has to allocate all
+					resources at once every time a process starts.
+			3.	Restart thread on wait - the processor constantly has to restart threads.
+			4.	Banker's algorithm - the processor must run an algorithm every time a
+					process makes a request.
+			5.	Detect deadlock and kill thread - a detection algorithm must run regularly.
+			6.	Detect deadlock and roll back - a detection algorithm must run regularly,
+					plus the processor must do the work of rolling back the process.                              

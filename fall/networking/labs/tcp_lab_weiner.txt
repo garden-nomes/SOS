@@ -1,0 +1,25 @@
+TCP Wireshark Lab - Noah Weiner
+
+1. Source computer (my laptop): 10.20.65.207, port 56317
+2. Destination computer (gaia.cs.umass.edu): 128.119.245.12, port 80
+3. (same as 1)
+
+4.	the seq # is 0, the SYN bit
+5.	seq # is 0, ack # is 1, SYN and ACK bits are flipped
+6.	seq # 1
+7.	  Seq #   Time Sent   ACK Received     RTT      Estimated RTT  
+	 ------- ----------- -------------- ---------- --------------- 
+	      1   5.171548    5.249268       0.077720   0.077720       
+	   1375   5.171549    5.249319       0.077770   0.077726       
+	   2749   5.171550    5.249571       0.078021   0.077763       
+	   4123   5.249422    5.328093       0.078671   0.077877       
+	   5397   5.249423    5.328793       0.079370   0.078064       
+	   6871   5.249424    5.328797       0.079373   0.078228       
+
+8.	Packet lengths:
+	1.	1440
+	2.	1440
+	3.	1440
+	4.	1440
+	5.	1440
+	6.	1440

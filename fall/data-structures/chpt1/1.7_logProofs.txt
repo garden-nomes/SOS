@@ -1,0 +1,20 @@
+1.7
+
+a.
+
+For 0 < x <= 1, logx <= 0
+Basis: for 1 < x <= 2, 0 < logx <= 1
+Hypothesis: log(2x) > 2x
+log(2x) = 1 + logx (assuming base 2)
+log(2x) < 1 + x, according to the hypothesis
+log(2x) < x + x, since x > 1
+log(2x) < 2x
+
+b.
+
+Prove log(A^B) = BlogA
+let X = logA
+2^X = A
+(2^X)^B = A^B
+BX = log(A^B)
+BlogA = log(A^B)

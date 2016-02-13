@@ -1,0 +1,103 @@
+Networking Homework Chapter 3 (part 2) - Noah Weiner
+
+R14	a.	false
+	b.	false
+	c.	true
+	d.	false
+	e.	true
+	d.	true
+	f.	true
+
+R15	a.	90 bytes
+	b.	20
+
+R16	After typing 'R', three segments are sent:
+	Seq=43, ACK=80, containing data 'R'
+	Seq=80, ACK=44, ACK containing data 'R'
+	Seq=44, ACK=81, empty ACK
+
+P9	sender                 receiver
+	send pkt0 -----------> rcv corrupt
+	rcv corrupt <--------- send ack1
+	(timeout)
+	send pkt0 -----------> rev pkt0
+	rev ack0 <------------ snd ack0
+
+P10	Modifications to rdt2.1:
+		- add start_timer to rdt_send(data)
+		- while in wait [0/1] state:
+			on timeout:
+				sndpkt=make_pkt([0/1], data checksum)
+				udt_send(sndpkt)
+
+	Correct communication is possible because the maximum delay is known,
+	so a timeout is a certain indication the packet is dropped. If the sent
+	packet is dropped, then it will be resent and communication will resume,
+	or if the ACK is dropped, then a packet will be resent with an out-of-
+	sequence number so the receiver will ignore the packet and resend the
+	ACK.
+
+P14	The problem with a NAK-only protocol is that it can't handle dropped
+	packets, unless the protocol uses sequence numbers. In that case, there
+	is still the possibility for a NAK to be dropped. This is the same for
+	the second case.
+
+P20	A: (same as figure 5.15 -- rdt3.0 sender)
+	C: (you're gonna need a big terminal window)-------------------------------------------------------------------------------------------|
+
+	                                                   rdt_rcvA(rcvpkt)&&notcorrupt(rcvpkt)
+	                                                   &&has_seq0(rcvpkt)
+	                                                   +----------------------------+           rdt_rcvB(rcvpkt)&&
+	               rdt_rcvA(rcvpkt)&&                  extract(rcvpkt,data)                     (corrupt(rcvpkt)||
+	               (corrupt(rcvpkt)||                  deliver_data(data)                       has_seq1(rcvpkt))
+	               has_seq1(rcvpkt))                   sndpkt=make_pkt(ACK,1,checksum)          ----------------------------
+	               ----------------------------        udt_sendB(sndpkt)                        sndpkt=make_pkt(ACK,1,checksum)
+	               sndpkt=make_pkt(ACK,1,checksum)    +---------------------------------+       udt_sendB(sndpkt)
+	               udt_sendA(sndpkt)    +------+      |                                 |      +------+
+	                                    |      |      |                                 |      |      |
+	                                    |   +--v------+--+                           +--v------+--+   |
+	                                    +---+            |                           |            <---+
+	                                        |  WAIT A/0  |                           |  WAIT B/0  |
+	                                     +-->            |                           |            +--+
+	rdt_rcvB(rcvpkt)&&notcorrupt(rcvpkt) |  +------------+                           +------------+  | rdt_rcvB(rcvpkt)&&notcorrupt(rcvpkt)
+	&&has_seq0(rcvpkt)                   |                                                           | &&has_seq0(rcvpkt)
+	+----------------------------+       |                                                           | +----------------------------+
+	extract(rcvpkt,data)                 |                                                           | extract(rcvpkt,data)
+	deliver_data(data)                   |                                                           | deliver_data(data)
+	sndpkt=make_pkt(ACK,0,checksum)      |                                                           | sndpkt=make_pkt(ACK,0,checksum)
+	udt_sendA(sndpkt)                    |  +------------+                           +------------+  | udt_sendA(sndpkt)
+	                                     +--+            |                           |            <--+
+	                                        |  WAIT B/1  |                           |  WAIT A/1  |
+	                                    +--->            |                           |            +---+
+	                                    |   +--+------v--+                           +--+------v--+   |
+	               rdt_rcvB(rcvpkt)&&   |      |      |                                 |      |      |
+	               (corrupt(rcvpkt)||   +------+      |                                 |      +------+
+	               has_seq0(rcvpkt))                  +---------------------------------+
+	               ----------------------------        rdt_rcvA(rcvpkt)&&notcorrupt(rcvpkt)     rdt_rcvA(rcvpkt)&&
+	               sndpkt=make_pkt(ACK,0,checksum)     &&has_seq1(rcvpkt)                       (corrupt(rcvpkt)||
+	               udt_sendB(sndpkt)                   +----------------------------+           has_seq0(rcvpkt))
+	                                                   extract(rcvpkt,data)                     ----------------------------
+	                                                   deliver_data(data)                       sndpkt=make_pkt(ACK,0,checksum)
+	                                                   sndpkt=make_pkt(ACK,0,checksum)          udt_sendA(sndpkt)
+	                                                   udt_sendB(sndpkt)
+	
+P36	It's possible the packets were reordered by the network, so the reciever
+	waits for three duplicate ACKs to be absolutely sure that the missing
+	packet didn't arrive after the first duplicate ACK.
+
+P38	No, the congestion window refers to the number of MSS-sized packets per RTT.
+	If the sender is sending smaller packets, then the sender can send at a faster
+	rate.
+
+P40	a.	1-6 and 23-26
+	b.	6-15 and 16-22
+	c.	Triple ACK
+	d.	Timeout
+	e.	32 segments
+	f.	21 segments
+	g.	14 segments
+	i.	ssthresh = 4 segments
+		cwnd = 7 segments
+	j.	ssthresh = 21
+		cwnd = 4
+	k.	52 packets

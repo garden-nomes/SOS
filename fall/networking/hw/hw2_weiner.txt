@@ -1,0 +1,50 @@
+Networking Homework 2 - Noah Weiner
+
+Ch1
+
+R19
+a. min[ 500 kb/s, 2 Mb/s, 1 Mb/s ] = 500 kb/s
+
+b. 4,000,000 bytes = 4000 kb
+   4000 kb / 500 kb/s = 8 s
+
+c. min [ 500 kb/s, 100 kb/s, 1 Mb/s ] = 100 kb/s
+   4000 kb / 100 kb/s = 40 s
+
+Ch2
+
+R1
+E-mail: SMTP
+Git: HTTPS/SSH
+Web browsing: HTTP/HTTPS
+File Transfer: FTP/SSH
+P2P File Distribution: BitTorrent
+
+R3
+The process that initiates the communication is the client, and the process that waits to be communicated with is the server.
+
+R5
+An IP address and a port number.
+
+R7
+A remote surgery application.
+
+R9
+SSL operates at the application layer.  The programmer includes the SSL libraries in both the server and client processes, and uses those libraries to access sockets.
+
+R11
+HTTP, FTP, SMTP, and POP3 all require no data loss.
+
+R13
+Web caching reduces the delay by requiring the server to send only a "page not modified" response, which is typically much smaller than the content of the page.
+
+Web caching will only affect pages that are already cached, though, so not all page requests are affected.
+
+R15
+Because FTP keeps two channels open on different sockets, one for control information and one for file transfer.
+
+P1
+
+a. False, the client will have to send multiple request messages for the images.
+b. True, if the server is configured for persistent connects and the requests are sent back-to-back.
+c. 

@@ -1,0 +1,70 @@
+Week 1 Homework - Noah Weiner
+
+R1. 'Hosts' and 'end systems' are interchageable, at least for the textbook.  End systems can be:
+    - A home desktop connected to a router
+    - A laptop connected to wifi
+    - A smartphone connected via cell network
+    - A web server (so 'yes' to the question 'is a web server an end system?')
+
+R4. DNS: Home network
+	Dial-Up: Home network
+	Cable: Home network
+	Ethernet: Home or enterprise network
+	WiFi: Home or enterprise network
+	LTE: Wide area wireless access network
+
+R9. Dial-up: maximum 56kbps, dedicated
+    HFC: variable rates, shared
+    DSL: 1-2Mbps downstream/128kbps-1Mbps upstream, dedicated
+    FTTH: usually 10-20Mbps downstream/2-10Mbps upstream (but can be much faster), dedicated
+
+R10. WiFi has a much smaller range than wide-area networks, and is therefore usually connected to an enterprise or residential network.  Wide area networks use existing cellular networks.  3G is the slowest, with newer devices using 4G and LTE networks.
+
+P1.
+
+Message specifications:
+Login <card #> <pwd> (ATM->Bank)
+Logoff (ATM->Bank)
+Correct login (Bank->ATM)
+Incorrect login (Bank->ATM)
+
+Bank computer will verify card # and password and either send a correct message and enter a session until it receives logoff, or send an incorrect message.
+
+Check balance (ATM->Bank)
+Return balance <balance> (Bank->ATM)
+
+Bank computer receives a check balance message, and either returns the balance or an incorrect login message if there is no current session.
+
+Withdraw <amount> (ATM->Bank)
+Dispense (Bank->ATM)
+Insufficient funds (Bank->ATM)
+
+Bank receives a withdraw request, and returns either a command to dispense (the ATM remembers the amount so there's no need to include it), insufficient funds, or an incorrect login if there is no session.
+
+
+    LOGIN 1234123412341234 1234
+ATM----------------------------->Bank
+
+              CORRECT
+ATM<-----------------------------BANK
+
+             CHKBALANCE
+ATM----------------------------->BANK
+
+             BALANCE 100
+ATM<-----------------------------BANK
+
+             WITHDRAW 50
+ATM----------------------------->BANK
+
+              DISPENSE
+ATM<-----------------------------BANK
+
+               LOGOFF
+ATM----------------------------->BANK
+
+P3.
+
+a. A circuit-switched network would be more appriate, since resources are reserved between end systems so the application can enjoy a guaranteed constant rate of transmission.
+
+b. No congestion control is needed.  Each link can handle the sum of the data being transmitted over the netowork, so it's guaranteed that no queues will form.

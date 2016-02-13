@@ -1,0 +1,19 @@
+Networking Lab 4 - Noah Weiner
+
+1. 4 fields:
+   source port
+   destination port
+   length
+   checksum
+
+2. 2 bytes each
+
+3. The size of the packet body and udp header in bytes. This particular packet has a 128 byte body and 8 byte packet header, which matches the length field of 136.
+
+4. 2^16 - 1 = 65,535 bytes maximum, since the length field is 2 bytes.
+
+5. Up to port 65,535, since the port is also 2 bytes.
+
+6. 0x11, or decimal 17
+
+7. The source and dest ports are switched between the query to the response, since the source of the query is the client and the source of the response is the server, and vice versa for the destination.

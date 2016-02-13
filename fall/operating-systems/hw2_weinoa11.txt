@@ -1,0 +1,27 @@
+Operating Systems Homework 2 - Noah Weiner
+
+2.1
+
+a.
+						1 job		2 jobs			4 jobs
+Turnaround time: 		NT			NT				2NT
+Throughput:				1/N jobs/T	2/N jobs/T		2/N jobs/T
+Processor utilization:	50%			100%			100%
+
+b.
+						1 job		2 jobs			4 jobs
+Turnaround time: 		NT			NT				2NT
+Throughput:				1/N jobs/T	2/N jobs/T		2/N jobs/T
+Processor utilization:	50%			100%			100%
+
+2.2
+
+Because the scheduling algorithm favors processes that have used little processor time recently, it is likely to choose I/O bound programs.  However, if processor bound processes are frequently ignored, then they will have used less processing time and be chosen again by the scheduler.
+
+2.3
+
+For a multiprogrammed batch system you might prioritize processes based on I/O usage as in 2.2 in order to maximize throughput.  However, with time-slicing fairness is more of a concern, so you might want to use a time-slicing system to ensure more turnover.
+
+2.4
+
+System calls allow user processes to request certain things from the kernel.  This allows for a seperation of user- and kernel-mode processes.  User processes can be restricted from accessing certain areas of memory or running certain commands, but when nessecary can request to do so at the kernel's discretion.

@@ -1,0 +1,93 @@
+Operating Systems Chapter 5 HW - Noah Weiner
+
+5.1
+
+One difference is that when accessing shared resources, a uniprocessor system has problems of mutual exclusion because processes can be interrupted and control given to other processes accesing that same resource while a multiprocessor system can have processes accessing the same resources at the same time.
+
+Another difference is that processes on a multiprocessor system don't nessecarily run sequentially, so two processes can attempt to access the same resource at the same time, possibly causing hardware issues.
+
+5.3
+
+a)
+...
+P1: x - 1;
+    x + 1;		(x = 10)
+
+P2: x - 1;		(x = 9)
+
+P1: if (x != 10)
+
+P2: x + 1;		(x = 10)
+    if (x != 10)
+
+P1: printf("x is %d", x)
+...
+
+b)
+...
+(x = 10)
+
+P1:
+x = x - 1 (partial)
+LD		R0,X
+DECR	R0
+(x = 10)
+
+P2:
+x = x + 1
+(x = 11)
+
+P1:
+x = x - 1 (partial)
+STO		R0,X
+(x = 9)
+
+P2:
+x = x - 1
+(x = 8)
+
+P1:
+if (x != )
+	printf(...)
+...
+
+5.4
+
+a) [50, 100]
+b) [50, 50 * n]
+
+5.5
+
+If the process will likely have to wait for only a very short amount of time, busy waiting can conserve memory as it doesn't require maintaining a queue.
+
+5.12
+
+Yes you could, since the original semaphor in fig 5.3 essentially uses the negative count to indicate the length of the blocked queue.
+
+5.19
+
+                producer                     consumer            s   n   delay  
+ ---- ----------------------------- --------------------------- --- --- ------- 
+   1                                                             1   0       0  
+   2   semWaitB(s)                                               0   0       0  
+   3   n++                                                       0   1       0  
+   4   if (n==1) semSignalB(delay)                               0   1       1  
+   5   semSignalB(s)                                             1   1       1  
+   6                                 semWaitB(delay)             1   1       0  
+   7                                 semWaitB(s)                 0   1       0  
+   8                                 n--                         0   0       0  
+   9                                 if (n==0) semWaitB(delay)   0   0       0  
+  10   semWaitB(s)                                               0   0       0  
+
+The producer is in semWaitB(s) while the consumer is in semWaitB(delay)
+
+5.22
+
+a) Yes, this could produce deadlock
+b) No
+c) Yes
+d) No
+
+5.25
+
+Both the reader and the writer can enter semWait(wrt)

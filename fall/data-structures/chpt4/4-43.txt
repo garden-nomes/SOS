@@ -1,0 +1,13 @@
+Problem 4.43
+Noah Weiner
+	
+	    +-------+A
+	    v                      
+	  +-B------->C-------->G--+
+	  v          v            v  
+	+-D-->E-+   +F            N
+	v       v   v              
+	H-->I   J   K->L-->M
+	             v-+ v-+
+	             O   P->Q->R
+	

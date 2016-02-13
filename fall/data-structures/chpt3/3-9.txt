@@ -1,0 +1,4 @@
+Problem 3.9
+Noah Weiner
+
+Because the vector might have moved to a new array, while the iterator still points to the old array.

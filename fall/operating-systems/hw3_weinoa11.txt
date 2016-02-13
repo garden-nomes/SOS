@@ -1,0 +1,63 @@
+3.1
+1. The dispatcher runs the process
+2. The process's time slice expires
+3. The process sends an I/O request
+4. An interrupt is sent
+5. The kernel needs to free up real memory, and there aren't any blocked programs that can be moved to virtual memory
+6. The kernel needs to free up real memory
+
+3.2
+At time 22:
+P1: blocked (read from disk 3)
+P3: blocked (read from disk 2)
+P5: running
+P7: blocked (write to disk 3)
+P8: ready
+
+At time 37:
+P1: ready
+P3: ready
+P5: non-resident
+P7: blocked (write to disk 3)
+P8: running
+
+At time 47:
+P1: ready
+P3: ready
+P5: running
+P7: blocked (write to disk 3)
+P8: terminated
+
+3.4
+Admit                       Dispatch
+--------------> Ready Queue ---------------------------> Running
+         -------^ |   ^-------------------------------------|
+ Activate|  -------   |         Timeout                     |
+         |  |         |                                     | Event
+         |  |Suspend  |       Event Occurs                  | wait
+         |  v         -----------------------------         |
+   Ready/Susend                                   |         |
+         ^                                        |         |
+         |                       Suspend          |         |
+         |       Event 1/Suspend <----- Event 1 Queue <-----|
+         |                 -----------------^               |
+  Event  |                     Activate                     |
+  occurs |                                                  |
+         |       Event 2/Suspend <----- Event 2 Queue <-----|
+         |                  -----------------^              |
+         |           ....                     ....          |
+         |                                                  |
+         ------- Event n/Suspend <----- Event n Queue <------
+                           ------------------^
+
+3.5
+You could check to see if the second-highest priority is ready, and dispatch that process if it is (or contine on to the third-highest, fourth-highest, and so on depending on the programmer's preference).  Otherwise, swap in the highest-priority process.
+
+3.10
+It's practical when only one process can be associated with an interrupt signal at a time.  When there is an interrupt queue, multiple process states need to be saved, so using a fixed location is impractical.
+
+3.11
+If user processes aren't able to preempt kernel processes, then that means that user processes will be unable to react quickly to real-time events.
+
+3.12
+Two lines of text, one of which contains a PID (the parent), and the other of which is 0 (the child).
