@@ -1,0 +1,50 @@
+Security Week 2 Homework
+Noah Weiner
+
+Chapter 8
+P12-21
+
+P12	(See chpt8p12.jpg)
+
+P13	Keep a hash of each block withing the .torrent file.  After each block
+	finishes downloading, hash it and check against the hash in the torrent.
+	If they don't match, discard the block and request it again.
+
+P14	Because a MAC ensures protection from a person-in-the-middle attach
+	where Trudy knows the hash function and replaces (m, H(m)) with
+	(m', H(m')).
+
+P15	If both people are required to authenticate each other, Trudy can wait
+	until she receives Bob's nonce and then send the same nonce back. Bob will
+	encrypt the nonce and return it to trudy, so Trudy can return that same
+	encrypted nonce (which is also a cipher of Bob's nonce).
+
+P16	a (See chpt8p16a.jpg)
+
+	b	Trudy forwards "I am Alice", but replaces Alice's public key with Trudy's
+		public key.  Trudy then intercepts the nonce and forwards it to Alice,
+		but replaces Alice's encrypted nonce with the same nonce encrypte with
+		Trudy's private key.
+
+P17	(See chpt8p17.jpg)
+
+P18	a	No, unfortunately Alice has no certificate and therefore no way
+		to guarantee that it is her.
+
+	b	Yes, Alice can encrypt her message (or a hash of it) with Bob's
+		public key so that Bob (and only Bob) can decrypt it.
+
+P19	a	The client
+	b	216.75.194.220, port 443
+	c	283
+	d	3
+	e	The EMS
+	f	bc and 9b
+	g	4 records - client hello plus the three in the packet
+	h	5 records, server hello, certificate, server hello done, change cipher spec,
+		and the encrypted hanshake record itself
+
+P20	She can't; TCP keeps track of it's own record numbers and won't accept any
+	out-of-sequence packets.
+
+P21	No, it won't pass the SSL MAC check.
