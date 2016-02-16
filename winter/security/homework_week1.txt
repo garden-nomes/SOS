@@ -1,0 +1,43 @@
+Security Week 1 Homework
+Noah Weiner
+
+Chapter 8
+
+R4		A chosen-paintext attack.
+
+R6		They need (sum of 1 to N) keys, one for each pair of people.
+		In the case of public keys, the need 2N keys: one public key and one private key for
+		each person.
+
+R9		Checksums do no provide quite as thorough protection against corruption.  It's much
+		easier for a checksum to miss a corruption in the data, whereas it's extremely to
+		generate a value that will compute to the same hash.
+
+R10		No, the hash reduces the message so that there isn't enough information to recreate
+		the source text from the hash.
+
+P2		If 7 letters are known, then only (26-7=)19 pairings remain.
+
+		19! = ~10^17
+		10^26 - 10^17 = 10^9
+
+P8	a.	n = 5 * 11 = 55
+		z = 4 * 10 = 40
+
+	b.	because 3 is relatively prime to 40
+
+	c.	d = 27 (3 * 27 = 81 and 81 mod 40 = 1)
+
+	d.	8^3 mod 55 = 512 mod 55 = 17
+
+P9	a.	S = (g^SA)^SB mod p = g^(SA + SB) mod p
+		S' = (g^SB)^SA mod p = g^(SB + SA) mod p
+
+	b.	TA = 2^5 mod 11 = 32 mod 11 = 10
+		TB = 12^5 mod 11 = 248,832 mod 11 = 1
+
+	c.	S = 1^5 mod 11 = 1
+
+P10	a.	A(S)
+
+	b.	B(A, S)
