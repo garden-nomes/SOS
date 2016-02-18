@@ -6,7 +6,7 @@
 
 class Job {
 	public:
-		explicit Job(uint32 id, std::string description,
+		explicit Job(std::string description,
 				uint16 processors, uint32 ticks);
 
 		void tick();
@@ -17,10 +17,13 @@ class Job {
 		uint16 processors() const;
 		uint32 ticks() const;
 
+		static uint32 max_id;
+
 	private:
-		uint16 j_procs;
-		uint32 j_id, j_ticks;
+		uint32 j_id;
 		std::string j_desc;
+		uint16 j_procs;
+		uint32 j_ticks;
 };
 
 #endif

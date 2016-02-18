@@ -2,7 +2,9 @@
 #define WAITQUEUE_H
 
 #include <queue>
+#include <list>
 #include <string>
+#include <iostream>
 #include "types.h"
 #include "job.h"
 
@@ -12,6 +14,8 @@ class WaitQueue {
 		
 		void insert(Job* job);
 		Job* getJob(uint16 n_procs_available);
+		void printState(std::ostream& os);
+		bool empty() const;
 
 	private:
 

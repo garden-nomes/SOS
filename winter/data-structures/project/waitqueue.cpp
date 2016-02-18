@@ -26,7 +26,6 @@ void WaitQueue::insert(Job* job) {
  *                  current available processors.
  */
 
-#include <list>
 Job* WaitQueue::getJob(uint16 n_procs_available) {
 	std::list<Job*> popped_jobs;	// maintain a list of checked jobs
 	Job* job;
@@ -35,6 +34,7 @@ Job* WaitQueue::getJob(uint16 n_procs_available) {
 	// available processors
 	while (!jobs.empty()) {
 		job = jobs.top();
+		jobs.pop();
 
 		if (job->processors() <= n_procs_available) {
 			// replace popped jobs
@@ -44,10 +44,9 @@ Job* WaitQueue::getJob(uint16 n_procs_available) {
 			}
 
 			return job;
+		} else {
+			popped_jobs.push_back(job);
 		}
-
-		popped_jobs.push_back(job);
-		jobs.pop();
 	}
 
 	// no job available to run
@@ -57,4 +56,40 @@ Job* WaitQueue::getJob(uint16 n_procs_available) {
 	}
 
 	return NULL;
+}
+
+/**
+ * printState: displays the current wait queue
+ * Parameters:
+ *   (ostream&) os : output stream to print to
+ */
+void WaitQueue::printState(std::ostream& os = std::cout) {
+	if (!jobs.empty()) {
+		std::list<Job*> popped_jobs;
+		Job* job;
+
+		for (int i = 0; !jobs.empty(); ++i) {
+			job = jobs.top();
+			os << "\t" << i << ": " << job->description();
+			popped_jobs.push_back(job);
+			jobs.pop();
+		}
+
+		while (!popped_jobs.empty()) {
+			jobs.push(popped_jobs.back());
+			popped_jobs.pop_back();
+		}
+	} else {
+		os << "\t(empty)";
+	}
+
+	os << std::endl;
+}
+
+/**
+ * empty
+ * Returns (bool) : whether wait queue is empty
+ */
+bool WaitQueue::empty() const {
+	return jobs.empty();
 }

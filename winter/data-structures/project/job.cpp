@@ -1,7 +1,9 @@
 #include "job.h"
 
-Job::Job(uint32 id, std::string description, uint16 processors, uint32 ticks) :
-	j_desc(description), j_id(id), j_ticks(ticks), j_procs(processors)
+uint32 Job::max_id = 0;
+
+Job::Job(std::string description, uint16 processors, uint32 ticks) :
+	j_id(max_id++), j_desc(description), j_procs(processors), j_ticks(ticks)
 { }
 
 /**
@@ -15,7 +17,8 @@ bool Job::done() const {
  * tick: decrements the tick the counter
  */
 void Job::tick() {
-	--j_ticks;
+	if (j_ticks > 0)
+		--j_ticks;
 }
 
 /**

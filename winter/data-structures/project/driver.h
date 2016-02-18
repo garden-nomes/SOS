@@ -3,6 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <map>
+#include <thread>
+#include <chrono>
+#include <fstream>
 #include "types.h"
 #include "scheduler.h"
 
@@ -32,14 +36,20 @@ string title =
 
 class Driver {
 public:
-	void execute();
+	void execute(string fname = "");
 
 private:
 	Scheduler* scheduler;
 	string last_command;
-	void initialize();
+	bool interactive_mode;
+	multimap<uint32, Job*> jobs;
+	uint32 ticks;
+	uint32 end;
+
+	void initialize(string fname);
 	bool tick();
 	void exit();
+	bool getInput();
 	void submitJob();
 	void printHelp();
 };

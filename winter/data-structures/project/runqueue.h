@@ -3,7 +3,7 @@
 
 #include "job.h"
 #include <vector>
-
+#include <iostream>
 
 class RunQueue {
 	public:
@@ -14,6 +14,8 @@ class RunQueue {
 		void runJob(Job* job);
 		uint16 freeProcessors() const;
 		std::vector<Job*> processors() const;
+		void printState(std::ostream& os) const;
+		bool empty() const;
 
 	private:
 		uint16 n_procs;

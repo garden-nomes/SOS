@@ -1,6 +1,6 @@
 #include "scheduler.h"
 
-Scheduler::Scheduler(uint16 processors) : waitQueue(), runQueue(processors), max_id(0)
+Scheduler::Scheduler(uint16 processors) : waitQueue(), runQueue(processors)
 { }
 
 /**
@@ -23,11 +23,20 @@ void Scheduler::tick() {
  *   (uint32) ticks : number of ticks the job will take to complete
  */
 void Scheduler::submitJob(std::string description, uint16 processors, uint32 ticks) {
-	Job* job = new Job(max_id++, description, processors, ticks);
+	Job* job = new Job(description, processors, ticks);
+	submitJob(job);
+}
+
+/**
+ * submitJob: same as above, takes a pointer
+ * Parameters
+ *   (Job*) job : pointer to job to insert
+ */
+void Scheduler::submitJob(Job* job) {
 	// if job is immediatly runnable, we can skip the waitqueue
 	// NOTE: this version is non-preemptive: any job that can run already will have run
 	// during tick()
-	if (processors <= runQueue.freeProcessors())
+	if (job->processors() <= runQueue.freeProcessors())
 		runQueue.runJob(job);
 	else
 		waitQueue.insert(job);
@@ -41,7 +50,15 @@ void Scheduler::submitJob(std::string description, uint16 processors, uint32 tic
  */
 void Scheduler::printState(std::ostream& os) {
 	os << "Run Queue:" << std::endl;
-	for (auto itr : runQueue.processors())
-		os << "\t[" << itr->description() << "]";
-	os << std::endl;
+	runQueue.printState(os);
+	os << "Wait Queue:" << std::endl;
+	waitQueue.printState(os);
+}
+
+/**
+ * empty
+ * Returns (bool) : whether runQueue and waitQueue are empty
+ */
+bool Scheduler::empty() {
+	return runQueue.empty() && waitQueue.empty();
 }

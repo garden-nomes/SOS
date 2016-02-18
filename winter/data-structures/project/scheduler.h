@@ -13,12 +13,13 @@ class Scheduler {
 
 		void tick();
 		void submitJob(std::string description, uint16 processors, uint32 ticks);
+		void submitJob(Job* job);
 		void printState(std::ostream& os = std::cout);
+		bool empty();
 
 	private:
 		WaitQueue waitQueue;
 		RunQueue runQueue;
-		uint32 max_id;
 };
 
 #endif

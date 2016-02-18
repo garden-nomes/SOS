@@ -1,11 +1,11 @@
 CXX=g++
-CFLAGS=-c -Wall
-LDFLAGS=
+CFLAGS=-gdwarf-2 -O -c -Wall
+LDFLAGS=-gdwarf-2
 SOURCES=driver.cpp scheduler.cpp waitqueue.cpp runqueue.cpp job.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=project
 
-all: $(SOURCES) $(EXECUTABLE) clean
+all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(LDFLAGS) $(OBJECTS) -o $@
