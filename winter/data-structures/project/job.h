@@ -1,20 +1,26 @@
 #ifndef JOB_H
 #define JOB_H
 
+#include <string>
+#include "types.h"
+
 class Job {
 	public:
-		explicit Job(unsigned job_id, std::string job_desc,
-				unsigned short n_job_procs, unsigned n_job_ticks) :
-			id{job_id}, desc{job_desc}, n_procs{n_job_procs},
-			n_ticks{n_job_ticks} { }
+		explicit Job(uint32 id, std::string description,
+				uint16 processors, uint32 ticks);
 
-		unsigned id;
-		std::string desc;
-		unsigned short n_procs;
-		unsigned n_ticks;
-
-		bool done();
 		void tick();
+
+		bool done() const;
+		uint32 id() const;
+		std::string description() const;
+		uint16 processors() const;
+		uint32 ticks() const;
+
+	private:
+		uint16 j_procs;
+		uint32 j_id, j_ticks;
+		std::string j_desc;
 };
 
 #endif

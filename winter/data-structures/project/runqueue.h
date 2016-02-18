@@ -4,18 +4,21 @@
 #include "job.h"
 #include <vector>
 
+
 class RunQueue {
 	public:
-		RunQueue(unsigned short n_procs);
+		RunQueue(uint16 n_procs);
+		~RunQueue();
 
-		void Tick();
+		bool tick();
 		void runJob(Job* job);
-		unsigned short getFreeProcs() const;
+		uint16 freeProcessors() const;
+		std::vector<Job*> processors() const;
 
 	private:
-		unsigned short n_procs;
-		unsigned short n_procs_used;
-		vector<Job*> jobs;
+		uint16 n_procs;
+		uint16 n_procs_used;
+		Job** jobs;
 };
 
 #endif
