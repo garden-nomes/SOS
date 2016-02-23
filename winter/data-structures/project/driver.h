@@ -36,7 +36,7 @@ string title =
 
 class Driver {
 public:
-	void execute(string fname = "");
+	void execute(string fname = "", uint16 processors = 0);
 
 private:
 	Scheduler* scheduler;
@@ -44,9 +44,8 @@ private:
 	bool interactive_mode;
 	multimap<uint32, Job*> jobs;
 	uint32 ticks;
-	uint32 end;
 
-	void initialize(string fname);
+	void initialize(string fname, uint16 processors);
 	bool tick();
 	void exit();
 	bool getInput();

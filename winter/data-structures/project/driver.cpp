@@ -1,12 +1,14 @@
 #include "driver.h"
 
-void Driver::execute(string fname) {
+void Driver::execute(string fname, uint16 processors) {
 	cout << title;
 
-	initialize(fname);
-	while (tick()) {
-		cout << endl << " round " << ticks <<
+	initialize(fname, processors);
+	bool running = true;
+	while (running) {
+		cout << endl << endl << " round " << ticks <<
 			" -----------------------------------------------------" << endl;
+		running = tick();
 		scheduler->tick();
 		scheduler->printState();
 		++ticks;
@@ -14,8 +16,7 @@ void Driver::execute(string fname) {
 	exit();
 }
 
-void Driver::initialize(string fname) {
-	uint16 processors;
+void Driver::initialize(string fname, uint16 processors) {
 	string input;
 
 	// read list of jobs from csv file
@@ -44,10 +45,6 @@ void Driver::initialize(string fname) {
 				getline(infile, input, ',');
 				j_ticks = stoul(input);
 
-				// calculate when to quit
-				if (end < timing + ticks)
-					end = timing + ticks;
-
 				jobs.insert(make_pair(
 					timing,
 					new Job(j_description, j_processors, j_ticks)
@@ -58,7 +55,6 @@ void Driver::initialize(string fname) {
 		}
 
 		cout << "done" << endl;
-		processors = 4; // set arbitrarily for now
 	} else {
 		interactive_mode = false;
 
@@ -167,8 +163,10 @@ void Driver::printHelp() {
 
 int main(int argc, char* argv[]) {
 	Driver driver;
-	if (argc < 2)
+	if (argc == 1)
 		driver.execute();
+	else if (argc == 3)
+		driver.execute(argv[1], stoul(argv[2]));
 	else
-		driver.execute(argv[1]);
+		cout << "usage: " << argv[0] << " [<csv file> <processor count>]" << endl;
 }
