@@ -1,5 +1,5 @@
 CXX=g++
-CFLAGS=-gdwarf-2 -O -c -Wall
+CFLAGS=-gdwarf-2 -O -c -Wall -std=c++0x
 LDFLAGS=-gdwarf-2
 SOURCES=driver.cpp scheduler.cpp waitqueue.cpp runqueue.cpp job.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
