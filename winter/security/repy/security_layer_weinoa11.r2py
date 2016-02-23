@@ -1,0 +1,93 @@
+PREFIXBUFFER = {}
+BUFFERLOCK = createlock()
+
+class SecureFile():
+  def __init__(self, file, filename):
+    self.lock = createlock()
+    self.file = file
+    self.filename = filename
+    if filename.startswith("private_"):
+      BUFFERLOCK.acquire(True)
+      if filename not in PREFIXBUFFER:
+        PREFIXBUFFER[filename] = "   "
+      BUFFERLOCK.release()
+
+  def readat(self, sizelimit, offset):
+    self.lock.acquire(True)
+    ret = self.file.readat(sizelimit, offset)
+    self.lock.release()
+    return ret
+
+  def writeat(self, data, offset):
+    if self.filename.startswith("private_") and offset < 3:
+      BUFFERLOCK.acquire(True)
+      PREFIXBUFFER[self.filename] = PREFIXBUFFER[self.filename][:offset] + data[:3-offset]
+      BUFFERLOCK.release()
+
+    self.lock.acquire(True)
+    result = self.file.writeat(data, offset)
+    self.lock.release()
+    return result
+
+    
+  def close(self):
+    return self.file.close()
+
+
+def secure_openfile(filename, create):
+  file = openfile(filename, create)
+  return SecureFile(file, filename)
+
+
+def secure_removefile(filename):
+  BUFFERLOCK.acquire(True)
+  if filename in PREFIXBUFFER and PREFIXBUFFER[filename] == "PER":
+    raise RepyArgumentError("Cannot delete this file!\n")
+  BUFFERLOCK.release()
+  removefile(filename)
+
+def secure_listfiles():
+  filelist = listfiles()
+  returnlist = []
+  BUFFERLOCK.acquire(True)
+  for filename in filelist:
+    if filename in PREFIXBUFFER and PREFIXBUFFER[filename] == "INV":
+      continue
+    returnlist.append(filename)
+  BUFFERLOCK.release()
+  return returnlist
+
+
+# The code here sets up type checking and variable hiding for you. You should not need to change anything below here.
+sec_file_def = {
+  "obj-type":SecureFile,
+  "name":"SecureFile",
+  "readat":{"type":"func","args":((int,long,type(None)),(int,long)),"exceptions":Exception,"return":str,"target":SecureFile.readat},
+  "writeat":{"type":"func","args":(str,(int,long)),"exceptions":Exception,"return":(None),"target":SecureFile.writeat},
+  "close":{"type":"func","args":None,"exceptions":None,"return":(bool,type(None)),"target":SecureFile.close}
+  }
+
+CHILD_CONTEXT_DEF["openfile"] = {"type":"objc",
+                                 "args":(str,bool),
+                                 # any? why Exception in particular?
+                                 "exceptions":Exception,
+                                 "return":sec_file_def,
+                                 "target":secure_openfile
+                                }
+
+CHILD_CONTEXT_DEF["listfiles"] = {"type":"func",
+                                  "args":None,
+                                  "return":list,
+                                  "exceptions":"any",
+                                  "target":secure_listfiles
+                                 }
+
+CHILD_CONTEXT_DEF["removefile"] = {"type":"func",
+                                   "args":(str,),
+                                   "return":None,
+                                   "exceptions":"any",
+                                   "target":secure_removefile
+                                  }
+
+# Execute the user code
+secure_dispatch_module()

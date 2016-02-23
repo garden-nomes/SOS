@@ -1,0 +1,51 @@
+if "private_testfile.txt" in listfiles():
+  removefile("private_testfile.txt")
+
+# Open a file
+myfile = openfile("private_testfile.txt", True)
+
+# Put some data in the file
+myfile.writeat("I", 0)
+myfile.writeat("NV", 1)
+
+if "private_testfile.txt" in listfiles():
+  log("ERROR! File not invisible.\n")
+  log("First 3 characters of file: " + myfile.readat(3, 0) + "\n")
+
+# overwrite
+myfile.writeat("not", 2)
+
+if "private_testfile.txt" not in listfiles():
+  log("ERROR! File still invisible.\n")
+  log("First 3 characters of file: " + myfile.readat(3, 0) + "\n")
+
+# Write into the file again
+myfile.writeat("P", 0)
+myfile.writeat("ER", 1)
+
+if "private_testfile.txt" not in listfiles():
+  log("ERROR! File still invisible.\n")
+  log("First 3 characters of file: " + myfile.readat(3, 0) + "\n")
+
+# test non-private file
+nonprivate = openfile("nonprivate_testfile.txt", True)
+nonprivate.writeat("INV", 0)
+if "nonprivate_testfile.txt" not in listfiles():
+  log("ERROR! Non-private file is invisible.\n")
+nonprivate.writeat("PER", 0)
+nonprivate.close()
+removefile("nonprivate_testfile.txt")
+if "nonprivate_testfile.txt" in listfiles():
+  log("ERROR! Couldn't delete non-private file beginning with \'PER\'.\n")
+
+
+# Close the file
+myfile.close()
+
+try:
+  removefile("private_testfile.txt")
+except RepyArgumentError:
+  pass # There should be an exception here!
+else:
+  log("ERROR! Allowed me to delete the file.\n")
+  log("First 3 characters of file: " + myfile.readat(3, 0) + "\n")
