@@ -7,7 +7,7 @@ void Driver::execute(string fname, uint16 processors) {
 	bool running = true;
 	while (running) {
 		cout << endl << endl << " round " << ticks <<
-			" -----------------------------------------------------" << endl;
+			" --------------------------------------------------------------------------" << endl;
 		running = tick();
 		scheduler->tick();
 		scheduler->printState();
@@ -28,9 +28,10 @@ void Driver::initialize(string fname, uint16 processors) {
 		uint16 j_processors;
 		string j_description;
 
-		cout << "opening " << fname << " for csv input... ";
+		cout << "opening " << fname << " for csv input... " << endl;
 		infile.open(fname);
 
+		getline(infile, input);	// skip header line
 		while (infile.good()) {
 			try {
 				// read timing
@@ -45,16 +46,20 @@ void Driver::initialize(string fname, uint16 processors) {
 				getline(infile, input, ',');
 				j_ticks = stoul(input);
 
+				cout << '\t' << j_description << ": "
+					<< j_processors << " processors, "
+					<< j_ticks << " ticks" << endl;
+
 				jobs.insert(make_pair(
 					timing,
 					new Job(j_description, j_processors, j_ticks)
 				));
 			} catch (exception e) {
-				cout << e.what() << endl;
+				cout << "error reading job" << endl;
 			}
 		}
 
-		cout << "done" << endl;
+		cout << "...done" << endl;
 	} else {
 		interactive_mode = false;
 

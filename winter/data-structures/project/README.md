@@ -34,13 +34,14 @@ Sample Output
 
 jobs.csv:
 ```
+time to submit, description, number of processors, time to complete,
 0,job,2,4,
 1,jobber,1,8,
 1,another job,3,9,
 3,jobly,2,6,
 5,working hard,2,6,
 5,its a job,1,2,
-8,jobbest,3,2,
+8,jobbest,3,2
 ```
 
 output:
@@ -56,7 +57,7 @@ Noah Weiner's
                   |_____  ||       ||    ___||    ___||    __  |
                    _____| ||       ||   |    |   |___ |   |  | |
                   |_______||_______||___|    |_______||___|  |_|
- _______  _______  __   __  _______  ______   __   __  ___      _______  ______
+ _______  _______  __   __  _______  ______   __   __  ___      _______  ______ 
 |       ||       ||  | |  ||       ||      | |  | |  ||   |    |       ||    _ |
 |  _____||       ||  |_|  ||    ___||  _    ||  | |  ||   |    |    ___||   | ||
 | |_____ |       ||       ||   |___ | | |   ||  |_|  ||   |    |   |___ |   |_||
@@ -64,12 +65,19 @@ Noah Weiner's
  _____| ||     |_ |   _   ||   |___ |       ||       ||       ||   |___ |   |  | |
 |_______||_______||__| |__||_______||______| |_______||_______||_______||___|  |_|
 
-opening jobs.csv for csv input... std::exception
-done
+opening jobs.csv for csv input... 
+	job: 2 processors, 4 ticks
+	jobber: 1 processors, 8 ticks
+	another job: 3 processors, 9 ticks
+	jobly: 2 processors, 6 ticks
+	working hard: 2 processors, 6 ticks
+	its a job: 1 processors, 2 ticks
+	jobbest: 3 processors, 2 ticks
+...done
 creating scheduler with 4 processors... done
 
 
- round 0 -----------------------------------------------------
+ round 0 --------------------------------------------------------------------------
 -> Job entered: job, needing 2 processors for 4 ticks.
 Run Queue:
 	[job]	[job]	[none]	[none]
@@ -77,7 +85,7 @@ Wait Queue:
 	(empty)
 
 
- round 1 -----------------------------------------------------
+ round 1 --------------------------------------------------------------------------
 -> Job entered: jobber, needing 1 processors for 8 ticks.
 -> Job entered: another job, needing 3 processors for 9 ticks.
 Run Queue:
@@ -86,14 +94,14 @@ Wait Queue:
 	0: another job
 
 
- round 2 -----------------------------------------------------
+ round 2 --------------------------------------------------------------------------
 Run Queue:
 	[job]	[job]	[jobber]	[none]
 Wait Queue:
 	0: another job
 
 
- round 3 -----------------------------------------------------
+ round 3 --------------------------------------------------------------------------
 -> Job entered: jobly, needing 2 processors for 6 ticks.
 Run Queue:
 	[job]	[job]	[jobber]	[none]
@@ -101,14 +109,14 @@ Wait Queue:
 	0: another job	1: jobly
 
 
- round 4 -----------------------------------------------------
+ round 4 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[jobber]	[another job]
 Wait Queue:
 	0: jobly
 
 
- round 5 -----------------------------------------------------
+ round 5 --------------------------------------------------------------------------
 -> Job entered: working hard, needing 2 processors for 6 ticks.
 -> Job entered: its a job, needing 1 processors for 2 ticks.
 Run Queue:
@@ -117,21 +125,21 @@ Wait Queue:
 	0: jobly	1: working hard	2: its a job
 
 
- round 6 -----------------------------------------------------
+ round 6 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[jobber]	[another job]
 Wait Queue:
 	0: working hard	1: jobly	2: its a job
 
 
- round 7 -----------------------------------------------------
+ round 7 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[jobber]	[another job]
 Wait Queue:
 	0: jobly	1: working hard	2: its a job
 
 
- round 8 -----------------------------------------------------
+ round 8 --------------------------------------------------------------------------
 -> Job entered: jobbest, needing 3 processors for 2 ticks.
 Run Queue:
 	[another job]	[another job]	[jobber]	[another job]
@@ -139,168 +147,168 @@ Wait Queue:
 	0: working hard	1: jobly	2: its a job	3: jobbest
 
 
- round 9 -----------------------------------------------------
+ round 9 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[its a job]	[another job]
 Wait Queue:
 	0: working hard	1: jobly	2: jobbest
 
 
- round 10 -----------------------------------------------------
+ round 10 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[its a job]	[another job]
 Wait Queue:
 	0: jobly	1: working hard	2: jobbest
 
 
- round 11 -----------------------------------------------------
+ round 11 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[its a job]	[another job]
 Wait Queue:
 	0: working hard	1: jobly	2: jobbest
 
 
- round 12 -----------------------------------------------------
+ round 12 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[none]	[another job]
 Wait Queue:
 	0: working hard	1: jobly	2: jobbest
 
 
- round 13 -----------------------------------------------------
+ round 13 --------------------------------------------------------------------------
 Run Queue:
 	[another job]	[another job]	[none]	[another job]
 Wait Queue:
 	0: jobly	1: working hard	2: jobbest
 
 
- round 14 -----------------------------------------------------
+ round 14 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 15 -----------------------------------------------------
+ round 15 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 16 -----------------------------------------------------
+ round 16 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 17 -----------------------------------------------------
+ round 17 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 18 -----------------------------------------------------
+ round 18 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 19 -----------------------------------------------------
+ round 19 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 20 -----------------------------------------------------
+ round 20 --------------------------------------------------------------------------
 Run Queue:
 	[working hard]	[working hard]	[none]	[none]
 Wait Queue:
 	0: jobly	1: jobbest
 
 
- round 21 -----------------------------------------------------
+ round 21 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 22 -----------------------------------------------------
+ round 22 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 23 -----------------------------------------------------
+ round 23 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 24 -----------------------------------------------------
+ round 24 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 25 -----------------------------------------------------
+ round 25 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 26 -----------------------------------------------------
+ round 26 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 27 -----------------------------------------------------
+ round 27 --------------------------------------------------------------------------
 Run Queue:
 	[jobly]	[jobly]	[none]	[none]
 Wait Queue:
 	0: jobbest
 
 
- round 28 -----------------------------------------------------
+ round 28 --------------------------------------------------------------------------
 Run Queue:
 	[jobbest]	[jobbest]	[jobbest]	[none]
 Wait Queue:
 	(empty)
 
 
- round 29 -----------------------------------------------------
+ round 29 --------------------------------------------------------------------------
 Run Queue:
 	[jobbest]	[jobbest]	[jobbest]	[none]
 Wait Queue:
 	(empty)
 
 
- round 30 -----------------------------------------------------
+ round 30 --------------------------------------------------------------------------
 Run Queue:
 	[jobbest]	[jobbest]	[jobbest]	[none]
 Wait Queue:
 	(empty)
 
 
- round 31 -----------------------------------------------------
+ round 31 --------------------------------------------------------------------------
 Run Queue:
 	[none]	[none]	[none]	[none]
 Wait Queue:
 	(empty)
 
 
- round 32 -----------------------------------------------------
+ round 32 --------------------------------------------------------------------------
 Run Queue:
 	[none]	[none]	[none]	[none]
 Wait Queue:
