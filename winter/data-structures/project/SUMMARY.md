@@ -1,7 +1,7 @@
 Summary
 =======
 
-I build a scheduler that takes either interactive input or a list of jobs in csv format, and a processor count.  It then uses a shortest process next (SPN) scheduling algorithm with gang scheduling (all threads for a process run simultaneously) over a series of 'ticks' (abstract time quantums) until all the user quits (interactive mode) or all processes have finished (csv mode).
+I built a scheduler that takes either interactive input or a list of jobs in csv format, and a processor count.  It then uses a shortest process next (SPN) scheduling algorithm with gang scheduling (all threads for a process run simultaneously) over a series of 'ticks' (abstract time quantums) until all the user quits (interactive mode) or all processes have finished (csv mode).
 
 Design
 ------
