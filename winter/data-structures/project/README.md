@@ -15,7 +15,7 @@ Syntax: `./project [<jobs_csv> <processor_count>]`
 where jobs_csv is a comma-separated, headerless csv file with columns [time to submit, description, processors required, ticks to complete]. Without a csv file, the program will run in an interactive mode that allows submitting jobs on the fly, and prompt for processor count on startup.
 
 Summary
--------
+=======
 
 I built a scheduler that takes either interactive input or a list of jobs in csv format, and a processor count.  It then uses a shortest process next (SPN) scheduling algorithm with gang scheduling (all threads for a process run simultaneously) over a series of 'ticks' (abstract time quantums) until all the user quits (interactive mode) or all processes have finished (csv mode).
 
