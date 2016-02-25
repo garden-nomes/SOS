@@ -14,9 +14,7 @@
  * Note: I changed some of the naming conventions; isEmpty() is now empty() and getMin() is just min().
  */
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <algorithm>
 
 template <typename Comparable>
 class Stack {
@@ -145,6 +143,8 @@ private:
  * Test code
  *------------------*/
 
+#include <iostream>
+#include <ctime>
 int main(int argc, char* argv[]) {
 	Stack<int> stack;
 
