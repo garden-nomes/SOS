@@ -1,0 +1,16 @@
+\documentclass{article}
+\title{OS161 Project 1 Executive Summary}
+\author{Noah Weiner}
+\begin{document}
+\date{}
+\maketitle
+
+\paragraph{Collaborators} I worked mostly alone, although I did have guidance from from the Pearls in Life blog and you (Neil). After I had finished I also helped out Eli, Michelle, Tai, and Jonathan a bit.
+
+\paragraph{What I completed} I implemented locks and condition variables, and created different thread counter synchronization tests using using locks, spinlocks, and no synchronization primitives. I demonstrated that each of these worked as expected: the lock/spinlock tests produced correct results while the unsafe counter failed to, and the spinlock test ran much faster than the lock test, although the unsafe test was faster than both.
+
+\paragraph{What I didn't complete} I would have liked to write more tests to ensure that the locks will never fail, and to check that the condition variables work - I don't think I wrote a test using them. Also, I implemented re-entrant locks in theory but didn't write any code to test that out.
+
+\paragraph{What I learned} I learned a lot about how to write kernel code. OS161 uses a set of conventions that mimic classes by associating a set a functions with a struct, something that I picked up as I progressed through the lab. I also became much more familiar with how synchronization primitives work, such as using spinlocks to provide synchronization for other synchronization primitives.
+
+\end{document}
