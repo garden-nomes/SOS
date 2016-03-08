@@ -1,0 +1,132 @@
+\documentclass{proc}
+
+\title{Operating Systems Project 3 Travelogue}
+\author{Noah Weiner}
+
+\begin{document}
+\maketitle
+
+\paragraph{Part A}
+\begin{enumerate}
+  \item The different segments of MIPS memory are allocated to either kernel or user processes. Of the kernel segments, 2 are direct-mapped (cached or uncached) and one is TLB-mapped (cacheable).
+  \item \begin{enumerate}
+  	\item \textbf{tlb\_random}: write a page to a random TLB slot.
+  	\item \textbf{tlb\_write}: write to a specific TLB slot.
+  	\item \textbf{tlb\_read}: read a page out of a slot.
+  	\item \textbf{tbl\_probe}: find a TLB entry matching a virtual page number.
+  \end{enumerate}
+  \item \textbf{PADDR\_TO\_KVADDR}: returns the physical address of a virtual address in kernel space (kseg0/kseg1).
+  \item The user stack pointer is initially set to USERSTACKTOP, which is MIPS\_KSEG0, which is 0x80000000
+  \item \begin{enumerate}
+  	\item \textbf{c0\_entryhi}: the virtual page number of the current TLB entry, as well as its address space ID.
+  	\item \textbf{c0\_entrylo}: the physical page number of the current TLB entry, as well as address space ID, as well as various flag bits (cacheable, dirty, global, valid).
+  \end{enumerate}
+  \item The as\_* functions are used to manipulate address spaces. The as\_prepare\_load() and as\_complete\_load() functions are called before and after loading an executable into memory, in order to set the correct page table permissions.
+  \item vm\_fault() handles page faults.
+  
+  \item \begin{enumerate}
+  	\item \textbf{0x100008} \begin{enumerate}
+  		\item Page no: 256 (0x100), offset: 8 (0x008)
+  		\item Translated address: 0x000008
+  		\item TLB contents: \begin{tabular}{c|c}
+  			Page \# & Frame \# \\ \hline
+  			0x100 & 0x008
+  		\end{tabular}
+  	\end{enumerate}
+  	
+  	\item \textbf{0x101008} \begin{enumerate}
+  		\item Page no: 257 (0x101), offset: 8 (0x008)
+  		\item Translated address: 0x001008
+  		\item TLB contents: \begin{tabular}{c|c}
+  			Page \# & Frame \# \\ \hline
+  			0x100 & 0x000 \\ \hline
+  			0x101 & 0x001
+  		\end{tabular}
+  	\end{enumerate}
+  
+  \item \textbf{0x1000f0} \begin{enumerate}
+  		\item Page no: 256 (0x100), offset: 240 (0x0f0)
+  		\item Translated address: 0x0000f0
+  		\item TLB contents: \begin{tabular}{c|c}
+  			Page \# & Frame \# \\ \hline
+  			0x100 & 0x000 \\ \hline
+  			0x101 & 0x001
+  		\end{tabular}
+  	\end{enumerate}
+  	
+  	\item \textbf{0x41000} \begin{enumerate}
+  		\item Page no: 65 (0x41), offset: 0 (0x0)
+  		\item Translated address: 0x002000
+  		\item TLB contents: \begin{tabular}{c|c}
+  			Page \# & Frame \# \\ \hline
+  			0x100 & 0x000 \\ \hline
+  			0x101 & 0x001 \\ \hline
+  			0x041 & 0x002
+  		\end{tabular}
+  	\end{enumerate}
+  	
+  	\item \textbf{0x41b00} \begin{enumerate}
+  		\item Page no: 65 (0x41), offset: 2816 (0xb00)
+  		\item Translated address: 0x002b00
+  		\item TLB contents: \begin{tabular}{c|c}
+  			Page \# & Frame \# \\ \hline
+  			0x100 & 0x000 \\ \hline
+  			0x101 & 0x001 \\ \hline
+  			0x041 & 0x002
+  		\end{tabular}
+  	\end{enumerate}
+  \end{enumerate}
+  
+\end{enumerate}
+
+\paragraph{Part B}
+\begin{enumerate}
+	\item MIPS\_KSEG0 is 0x80000000
+	\item firstpaddr is the physical address of the first free page
+	\item lastpaddr is one past the end of the last free page
+	\item firstfree is the first free virtual address.
+	\item If there is 508 MB of RAM or more, the largest physical address is 0x1FC00000.
+	\item start.S $\to$ firstfree $\to$ ram\_bootstrap $\to$ ramsize $\to$ lastpaddr $\to$ firstpaddr $\to$ ram\_stealmem
+	
+	ram\_getsize is never actually called.
+	\item Physical memory setup $\to$ polling hardware $\to$ VM initialization
+	\item ram\_bootstrap $\to$ alloc\_kpages $\to$ ram\_stealmem $\to$ vm\_bootstrap
+	
+	Again, I don't think ram\_getsize is ever called.
+\end{enumerate}
+
+\paragraph{Part C}
+\begin{enumerate}
+	\item Dumbvm has 12 pages of user stack, which it fills sequentially and then flops. It abuses functions (as\_prepare\_load, meant for preparing to read executables, and ram\_stealmem, meant for vm bootstrapping) to do so.
+	\item as\_create initializes the structure, as\_prepare\_load actually allocates memory via getppages, and memory is zeroed via as\_zero\_region.
+	\item It's not, yet, given that virtual memory isn't actually implemented. PADDR\_TO\_KVADDR goes the other way though.
+	\item Same as the above.
+	\item kmalloc grabs memory via alloc\_kpages if necessary, otherwise subpage\_malloc.
+	\item kfree tries subpage\_kfree, and then free\_kpages if necessary.
+	\item Each page maintains a list of subpages, which can be any size that's a multiple of 4 (preferably 8, according to kmalloc.c). Allocation is essentially finding a free subpage that fits whatever size is needed.
+	\item as\_create, which allocates memory for the addrspace struct and essentially initializes all addrspace fields to 0.
+	\item as\_destroy, which frees the addrspace struct (or would, if kfree worked).
+	\item To activate a user addrspace, dumbvm checks that the current address space is valid, and then invalidates all entries in the TLB.
+	\item A region is a set of pages designated for different access controls. There are two per address space.
+	\item load\_elf uses as\_define\_region to create a separate region to load the executable into.
+	\item Nope, addrspace regions aren't protected in the dumbvm.
+	\item Regions CAN be accessed through the addrspace struct, but as far as I can most memory is accessed directly through the physical address.
+	\item Address space functions (as\_prepare\_load, as\_define\_region, etc) access addrspace regions for intialization.
+	\item as\_complete\_load currently does nothing. When project 3 is completed, it will likely set the addrspace region containing the executable bytecode to readonly, and any other post-elf-loading memory management to be done.
+	\item as\_define\_stack returns an initial pointer to the stack for a new process.
+	\item runprogram() in runprogram.c
+\end{enumerate}
+
+\paragraph{Part D}
+\begin{enumerate}
+	\item mips\_trap in arch/mips/locore/trap.c
+	\item Whenever a VM fault is triggered by trying to write read-only memory or a TLB miss.
+	\item It attempts to write the page into the TLB.
+\end{enumerate}
+
+\paragraph{Summary} Memory management is done via a two-level page hierarchy: each 4096 byte page maintains a list of sub-pages of varying length. Memory is divided into three segments, for user space and different types of kernel space. The kernel maintains a TLB which the MIPS uses for address translation. Processes own pages via an address space, which can have up to two regions for different access controls (for user processes, a read-only region for the executable byte code and a read-write address space). Dumbvm implements memory management as crudely as possible, and is meant to be replaced in project 3. It essentially abuses some functions meant for bootstrapping to allocate memory, and then crashes when physical memory is full. It doesn't handle de-allocation or regional access controls.
+
+\paragraph{Collaborators and co-conspirators} Eli, Zack, Kalen, Gavin, Nathaniel, Austin, Matthew, and Michelle 
+
+
+\end{document}
