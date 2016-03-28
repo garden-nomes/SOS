@@ -1,3 +1,0 @@
-$ ./argtest hello
-The argument array contains:
-0:hello
