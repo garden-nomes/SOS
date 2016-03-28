@@ -13,6 +13,7 @@ $ ls -lh largearray largearrayinit
 The initialized array is about 196k larger than the unintialized one, because the space for the initial data for the array is included in the executable.
 
 # Exercise 2
+
 ```
 $ ./argtest "hello world 123 test"
 The argument array contains:
@@ -21,6 +22,9 @@ The argument array contains:
 2:123
 3:test
 ```
+
+# Exercise 3
+
 The modified code is in makeargv.c. Sample output:
 ```
 $ ./argtest "hello world test 123"
@@ -36,6 +40,7 @@ The book doesn't really define "thread-safe", but as re-entrant doesn't imply th
 doesn't necessarily make strtok_r thread-safe.
 
 # Exercise 4
+```
 symbol       | linkage   | storage
 -----------------------------------
 count        | internal  | static
@@ -49,6 +54,7 @@ clearcount() | external  | N/A
 getcount()   | external  | N/A
 bubblesort() | external  | N/A
 i            | N/A       | automatic
+```
 
 # Exercise 5
 Sample output:
