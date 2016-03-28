@@ -1,0 +1,13 @@
+symbol       | linkage   | storage
+-----------------------------------
+count        | internal  | static
+onepass()    | internal  | N/A
+a[]          | N/A       | automatic
+n            | N/A       | automatic
+i            | N/A       | automatic
+interchanges | N/A       | automatic
+temp         | N/A       | automatic
+clearcount() | external  | N/A
+getcount()   | external  | N/A
+bubblesort() | external  | N/A
+i            | N/A       | automatic
