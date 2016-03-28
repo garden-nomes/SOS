@@ -1,0 +1,51 @@
+Sample output:
+
+$ ./keeplog
+echo "hello world"
+hello world
+ls
+argtest        bubblesort.c      convertlinux.ed  getpaths.c      keeplog.c     largearrayinit    log.h       README         showtimestest.c   wordaveragetest
+argtest.c      bubblesorttest    environ          getpathstest    keeploglib.c  largearrayinit.c  loglib.c    showtimes      wastetime.c       wordaveragetestbad
+argtestfree    bubblesorttest.c  environ.c        getpathstest.c  largearray    listlib.c         makeargv.c  showtimes.c    wordaveragebad.c  wordaveragetest.c
+argtestfree.c  convertlinux      freemakeargv.c   keeplog         largearray.c  listlib.h         makefile    showtimestest  wordaverage.c
+cat bubblesort.c
+static int count = 0;
+...
+         break;
+}
+
+
+>>>>>>The list of commands executed is:
+Command: echo "hello world"
+Time: Mon Mar 28 14:14:54 2016
+
+Command: ls
+Time: Mon Mar 28 14:14:56 2016
+
+Command: cat bubblesort.c
+Time: Mon Mar 28 14:15:09 2016
+
+
+$ ./keeplog history
+echo test
+test
+ls
+argtest        bubblesort.c      convertlinux.ed  getpaths.c      keeplog.c     largearrayinit    log.h       README         showtimestest.c   wordaveragetest
+argtest.c      bubblesorttest    environ          getpathstest    keeploglib.c  largearrayinit.c  loglib.c    showtimes      wastetime.c       wordaveragetestbad
+argtestfree    bubblesorttest.c  environ.c        getpathstest.c  largearray    listlib.c         makeargv.c  showtimes.c    wordaveragebad.c  wordaveragetest.c
+argtestfree.c  convertlinux      freemakeargv.c   keeplog         largearray.c  listlib.h         makefile    showtimestest  wordaverage.c
+history
+Command: echo test
+Time: Mon Mar 28 14:18:54 2016
+
+Command: ls
+Time: Mon Mar 28 14:19:28 2016
+
+
+
+>>>>>>The list of commands executed is:
+Command: echo test
+Time: Mon Mar 28 14:18:54 2016
+
+Command: ls
+Time: Mon Mar 28 14:19:28 2016
