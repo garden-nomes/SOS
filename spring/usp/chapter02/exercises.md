@@ -120,6 +120,7 @@ to "member" functions or creating whole "classes" using preprocessor directives 
 lists of different types.
 
 # Exercise 7
+Book version:
 ```
 $ ./environ
 The environment list follows:
@@ -186,6 +187,58 @@ environ[59]: XAUTHORITY=/home/noah/.Xauthority
 environ[60]: COLORTERM=xfce4-terminal
 environ[61]: _=./environ
 ```
+My environ.c (customized to use strtok to split key/value pairs):
+```
+$ ./environ 
+USER: noah
+LS_COLORS: rs
+GLADE_MODULE_PATH: :
+SSH_AUTH_SOCK: /tmp/ssh-wbKKSxJ0rTHv/agent.1884
+USERNAME: noah
+SESSION_MANAGER: local/noah-mintvm:@/tmp/.ICE-unix/1878,unix/noah-mintvm:/tmp/.ICE-unix/1878
+DEFAULTS_PATH: /usr/share/gconf/xfce.default.path
+TMUX: /tmp/tmux-1000/default,3541,0
+XDG_CONFIG_DIRS: /etc/xdg/xdg-xfce:/usr/share/upstart/xdg:/etc/xdg:/etc/xdg
+PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+DESKTOP_SESSION: xfce
+GDM_XSERVER_LOCATION: local
+PWD: /home/noah/Documents/sos/spring/usp/chapter02
+JOB: dbus
+LANG: en_US.UTF-8
+GNOME_KEYRING_PID: 1786
+MANDATORY_PATH: /usr/share/gconf/xfce.mandatory.path
+TMUX_PANE: %6
+IM_CONFIG_PHASE: 1
+MDM_XSERVER_LOCATION: local
+GDMSESSION: xfce
+Unable to tokenize environ SESSIONTYPE.
+XDG_SEAT: seat0
+SHLVL: 2
+HOME: /home/noah
+Unable to tokenize environ UPSTART_INSTANCE.
+XDG_SESSION_DESKTOP: xfce
+UPSTART_EVENTS: started xsession
+LOGNAME: noah
+XDG_DATA_DIRS: /usr/share/xfce:/usr/share/xfce4:/usr/local/share/:/usr/share/:/usr/share/mdm/:/usr/share
+DBUS_SESSION_BUS_ADDRESS: unix:abstract
+LESSOPEN: | /usr/bin/lesspipe %s
+MDMSESSION: xfce
+WINDOWPATH: 8
+UPSTART_JOB: startxfce4
+TEXTDOMAIN: im-config
+Unable to tokenize environ INSTANCE.
+XDG_RUNTIME_DIR: /run/user/1000
+DISPLAY: :0.0
+MDM_LANG: en_US.UTF-8
+GLADE_CATALOG_PATH: :
+XDG_CURRENT_DESKTOP: XFCE
+LESSCLOSE: /usr/bin/lesspipe %s %s
+TEXTDOMAINDIR: /usr/share/locale/
+XAUTHORITY: /home/noah/.Xauthority
+COLORTERM: xfce4-terminal
+_: ./environ
+```
+Checking it:
 ```
 $ ./getpathstest 
 [0]:/usr/local/sbin
