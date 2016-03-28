@@ -1,5 +1,6 @@
+# Exercise 5
 Sample output:
-
+```
 $ ./keeplog
 echo "hello world"
 hello world
@@ -24,8 +25,8 @@ Time: Mon Mar 28 14:14:56 2016
 
 Command: cat bubblesort.c
 Time: Mon Mar 28 14:15:09 2016
-
-
+```
+```
 $ ./keeplog history
 echo test
 test
@@ -49,3 +50,4 @@ Time: Mon Mar 28 14:18:54 2016
 
 Command: ls
 Time: Mon Mar 28 14:19:28 2016
+```

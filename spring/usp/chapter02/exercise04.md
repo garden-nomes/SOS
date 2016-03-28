@@ -1,3 +1,4 @@
+# Exercise 4
 symbol       | linkage   | storage
 -----------------------------------
 count        | internal  | static

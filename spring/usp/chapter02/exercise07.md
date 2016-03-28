@@ -1,3 +1,5 @@
+# Exercise 7
+```
 $ ./environ
 The environment list follows:
 environ[0]: XDG_VTNR=8
@@ -62,7 +64,8 @@ environ[58]: TEXTDOMAINDIR=/usr/share/locale/
 environ[59]: XAUTHORITY=/home/noah/.Xauthority
 environ[60]: COLORTERM=xfce4-terminal
 environ[61]: _=./environ
-
+```
+```
 $ ./getpathstest 
 [0]:/usr/local/sbin
 [1]:/usr/local/bin
@@ -74,3 +77,4 @@ $ ./getpathstest
 [7]:/usr/local/games
 $ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+```

@@ -1,3 +1,4 @@
+# Exercise 6
 Listlib.h/.c uses the "static" keyword to approximate private variables and functions, and
 instance variables (which can be made public with the "extern" keyword). What it can't do
 is create seperate instances.
