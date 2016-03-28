@@ -1,3 +1,4 @@
+
 # Exercise 1
 
 ```
@@ -9,7 +10,9 @@ $ ls -lh largearray largearrayinit
 -rwxr-xr-x 1 noah noah 204K Mar 28 11:14 largearrayinit
 ```
 
-The initialized array is about 196k larger than the unintialized one, because the space for the initial data for the array is included in the executable.# Exercise 2
+The initialized array is about 196k larger than the unintialized one, because the space for the initial data for the array is included in the executable.
+
+# Exercise 2
 ```
 $ ./argtest "hello world 123 test"
 The argument array contains:
@@ -17,7 +20,8 @@ The argument array contains:
 1:world
 2:123
 3:test
-```The modified code is in makeargv.c. Sample output:
+```
+The modified code is in makeargv.c. Sample output:
 ```
 $ ./argtest "hello world test 123"
 The argument array contains:
@@ -29,7 +33,9 @@ The argument array contains:
 Strtok_r modifies the saveptr parameter, using it as scratch space. It is re-entrant: because
 it uses saveptr rather than a static buffer, it can be overlapped by calls to different strings.
 The book doesn't really define "thread-safe", but as re-entrant doesn't imply thread-safe, this
-doesn't necessarily make strtok_r thread-safe.# Exercise 4
+doesn't necessarily make strtok_r thread-safe.
+
+# Exercise 4
 symbol       | linkage   | storage
 -----------------------------------
 count        | internal  | static
@@ -43,6 +49,7 @@ clearcount() | external  | N/A
 getcount()   | external  | N/A
 bubblesort() | external  | N/A
 i            | N/A       | automatic
+
 # Exercise 5
 Sample output:
 ```
@@ -96,6 +103,7 @@ Time: Mon Mar 28 14:18:54 2016
 Command: ls
 Time: Mon Mar 28 14:19:28 2016
 ```
+
 # Exercise 6
 Listlib.h/.c uses the "static" keyword to approximate private variables and functions, and
 instance variables (which can be made public with the "extern" keyword). What it can't do
@@ -103,7 +111,9 @@ is create seperate instances.
 
 We actually saw a few hacks to fix this in OS161, such as passing a struct of state information
 to "member" functions or creating whole "classes" using preprocessor directives to create
-lists of different types.# Exercise 7
+lists of different types.
+
+# Exercise 7
 ```
 $ ./environ
 The environment list follows:
@@ -182,11 +192,13 @@ $ ./getpathstest
 [7]:/usr/local/games
 $ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-```# Exercise 8
+```
+# Exercise 8
 exit() calls user exit handlers defined by atexit() or on_exit(), flushes buffers, and closes
 open streams. _exit() and _Exit() don't call user handlers and may or may not release open
 resources. _Exit() is written with a more modern code standard than _exit().
 
-Exiting via "return" uses exit(), or exit() with status 0 if the end of main is reached.# Exercise 9
+Exiting via "return" uses exit(), or exit() with status 0 if the end of main is reached.
+# Exercise 9
 An exit handler is a user defined function that runs during exit(). It isn't called if the
 process is terminated via _exit() or _Exit().
