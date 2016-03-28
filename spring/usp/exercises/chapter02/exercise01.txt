@@ -5,4 +5,4 @@ $ ls -lh largearray largearrayinit
 -rwxr-xr-x 1 noah noah 8.4K Mar 28 11:14 largearray
 -rwxr-xr-x 1 noah noah 204K Mar 28 11:14 largearrayinit
 
-The initialized array is about 196k larger than the unintialized one.
+The initialized array is about 196k larger than the unintialized one, because the space for the initial data for the array is included in the executable.
