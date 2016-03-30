@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <errno.h>
 #include "log.h"
@@ -48,7 +49,6 @@ void clearlog(void) {
         headptr = headptr->next;
 
         /* clean up allocated memory */
-        //free(node->item.string);
         free(node);
     }
     tailptr = NULL;
@@ -89,5 +89,18 @@ char *getlog(void) {
 }
 
 int savelog(char *filename) {
-   return 0;
+    FILE *file;
+    char *log;
+
+    if ((file = fopen(filename, "a")) == NULL)
+        return -1;
+
+    log = getlog();
+    fprintf(file, "%s", log);
+    free(log);
+
+    if (fclose(file))
+        return -1;
+
+    return 0;
 }
