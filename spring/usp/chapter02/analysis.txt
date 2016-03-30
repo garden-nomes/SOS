@@ -1,0 +1,67 @@
+Code analysis for loglib.c:
+
+1. Make use of return values to communicate information and to make error
+   trapping easy for the calling program.
+
+All functions use error returns (either -1 or NULL) on error.
+
+2. Do not exit from functions. Instead, return an error value to allow the
+   calling program flexibility in handling the error.
+
+No functions call exit(), _exit(), or _Exit().
+
+3. Make functions general but usable. (Sometimes these are conflicting goals.)
+
+There's definitely room for improvement:
+- addmsg could be modified to take only a char*, and construct a data_t with
+  the current time on its own. Allow the caller to specify any time in the
+  data_t seems like an unnessecary generality, since you're always going to
+  want to the log the current time.
+- It would be nice to be able to specify some formatting options for getlog().
+  should it put the contents of each entry on a new line? Should the time/date
+  be formatted differently?
+
+4. Do not make unnecessary assumptions about sizes of buffers. (This is often
+   hard to implement.)
+
+I use MAX_CANON for maximum input length, otherwise no assumptions are made.
+
+5. When it is necessary to use limits, use standard system-defined limits rather
+   than arbitrary constants.
+
+MAX_CANON defaults to its system-defined value in limits.h.
+
+6. Do not reinvent the wheel—use standard library functions when possible.
+
+I use plenty of string manipulation functions instead of doing things myself.
+
+7. Do not modify input parameter values unless it makes sense to do so.
+
+I think the only input I modify is to strip the "save " of the "save [filename]"
+command.
+
+8. Do not use static variables or dynamic memory allocation if automatic
+   allocation will do just as well.
+
+I use automatic allocation for the input buffer, whose maximum size is known.
+
+9. Analyze all the calls to the malloc family to make sure the program frees
+   the memory that was allocated.
+
+I have to admit my guilt: clearlog doesn't free the string in data_t. free()
+threw an error when I tried that. Forgive my sins.
+
+10. Consider whether a function is ever called recursively or from a signal handler
+or from a thread. Functions with variables of static storage class may not behave
+in the desired way. (The error number can cause a big problem here.)
+
+None of that here.
+
+11. Analyze the consequences of interruptions by signals.
+
+It's certainly possible to leak some mememory of have an open file handler in
+savelog.
+
+12. Carefully consider how the entire program terminates.
+
+The only place it can terminate is from the "return 0" line of main.
