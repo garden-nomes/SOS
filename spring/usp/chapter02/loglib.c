@@ -7,15 +7,22 @@ typedef struct list_struct {
      data_t item;
      struct list_struct *next;
 } log_t;
- 
+
 static log_t *headptr = NULL;
 static log_t *tailptr = NULL;
- 
+
 int addmsg(data_t data) {
     log_t *node;
-    int nodesize = sizeof(node) + strlen(data.string) + 1;
+    int nodesize;
+
+    /* check data */
+    if (data.string == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
 
     /* allocate node */
+    nodesize = sizeof(log_t);
     if ((node = (log_t *)malloc(nodesize)) == NULL) {
         errno = ENOMEM;
         return -1;
@@ -29,21 +36,23 @@ int addmsg(data_t data) {
     if (tailptr != NULL)
         tailptr->next = node;
     tailptr = node;
+    node->next = NULL;
 
     return 0;
 }
 
 void clearlog(void) {
     log_t *node;
-    tailptr = NULL; /* reset tail pointer */
     while (headptr != NULL) {
         node = headptr;
         headptr = headptr->next;
 
         /* clean up allocated memory */
-        free(node->item.string);
+        //free(node->item.string);
         free(node);
     }
+    tailptr = NULL;
+    headptr = NULL;
 }
 
 char *getlog(void) {
@@ -51,15 +60,14 @@ char *getlog(void) {
     int logsize;
     char *log, *timestamp;
 
-    if (headptr == NULL)    /* empty log! */
-        return "";
-
     /* calculate outputted log size */
     logsize = 1;
     for (node = headptr; node != NULL; node = node->next)
-        logsize += strlen(ctime(&(node->item.time))) + strlen(node->item.string) - 10;
+        logsize += strlen(ctime(&(node->item.time))) +
+            strlen(node->item.string) + 3;
 
     /* allocate log */
+    log = NULL;
     if ((log = malloc(logsize)) == NULL) {
         errno = ENOMEM;
         return NULL;
