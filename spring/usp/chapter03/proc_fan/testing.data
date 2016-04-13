@@ -1,0 +1,7 @@
+./testsim 2 5
+./testsim 1 15
+./testsim 5 5
+ls -l
+./testsim 10 10
+./testsim 1 15
+./testsim 5 20
