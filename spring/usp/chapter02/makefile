@@ -1,5 +1,5 @@
 CC = cc
-COPS =-D_GNU_SOURCE
+COPS =-D_GNU_SOURCE -ggdb
 LINT = splint
 LOPS = -x -u
 REENT = -D_REENTRANT
@@ -15,7 +15,7 @@ environ: environ.c
 logtest: logtest.c loglib.c log.h
 	$(CC) $(COPS) -o logtest logtest.c loglib.c
 
-lintall: lintargtest
+lintall: lintargtest lintenviron lintlogtest
 
 lintargtest:
 	$(LINT) $(LOPS) argtest.c makeargv.c
@@ -27,6 +27,6 @@ lintlogtest:
 	$(CC) $(COPS) logtest.c loglib.c
 
 clean:
-	rm -f *.o core wordaveragetest wordaveragetestbad bubblesorttest keeplog largearray largearrayinit showtimes environ argtest argtestfree getpathstest showtimestest
+	rm -f *.o core wordaveragetest wordaveragetestbad bubblesorttest keeplog largearray largearrayinit showtimes environ argtest argtestfree getpathstest showtimestest logtest
 
 
