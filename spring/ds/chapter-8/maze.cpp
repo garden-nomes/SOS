@@ -12,10 +12,11 @@ public:
 
 private:
   void generate();
-  bool filled_in();
+  bool filled_in() const;
   void join(int cell1, int cell2);
-  int find(int cell);
-  int adjacent(int cell);
+  int find(int cell) const;
+  bool walled(int cell, int adj) const;
+  int adjacent(int cell) const;
   vector<int> cells;
   int width, height;
 };
@@ -26,8 +27,7 @@ private:
  */
 
 Maze::Maze(int width, int height)
-  : width(width), height(height), cells(width * height) {
-  for (int i = 0; i < cells.size() ++i) cells[i] = i;
+  : width(width), height(height), cells(width * height, -1) {
   srand(time(NULL));  /* seed random with time */
   generate();
 }
@@ -48,12 +48,12 @@ string Maze::render() const {
   ret += "\n\t.";
 
   for (int i = 0; i < cells.size(); ++i) {
-    if (cells[i] == i + width || cells[i + width] == i)
+    if (!walled(i, i + width))
       ret += " ";
     else
       ret += "_";
 
-    if (cells[i+1] == i || cells[i] == i+1)
+    if (!walled(i, i+1))
       ret += ".";
     else
       ret += "|";
@@ -68,45 +68,44 @@ string Maze::render() const {
 }
 
 void Maze::generate() {
-  int cell, adj;
+  cout << "Generating..." << endl;
+  for (int i = 0, adj; i < cells.size(); ++i) {
+    for (int j = 0; j < cells.size(); ++j)
+      cout << i << ": " << cells[i] << " (" << find(i) << ")" << endl;
+    adj = adjacent(i);
+    while (find(i) == find(adj))
+      adj = adjacent(i);
 
-  for (int i = 0; i < cells.size(); ++i) {
-    do adj = adjacent(i); while (find(i) == find(adj));
-    cout << i << ": " << adj << endl;
-    join(i, adj);
+    cells[i] = adj;
   }
 }
 
-bool Maze::filled_in() {
+bool Maze::filled_in() const {
   for (int i = 1; i < cells.size(); ++i)
     if (find(i) != find(0))
       return true;
   return false;
 }
 
-int Maze::adjacent(int cell) {
-  enum Direction {UP, DOWN, LEFT, RIGHT};
+bool Maze::walled(int cell, int adj) const {
+  return (cells[cell] == adj || cells[adj] == cell);
+}
 
-  int direction = rand() % 4;
-  switch (direction) {
-  case UP:
-    return cell - width >= 0 ? cell - width : adjacent(cell);
-  case DOWN:
-    return cell + width < cells.size() ? cell + width : adjacent(cell);
-  case LEFT:
-    return cell % width != 0 ? cell-- : adjacent(cell);
-  case RIGHT:
-    return (cell+1) % width != 0 ? cell++ : adjacent(cell);
-  default:
-    return adjacent(cell);
-  }
+int Maze::adjacent(int cell) const {
+  vector<int> adjacent_cells(4);
+  if (cell+1 < cells.size()) adjacent_cells.push_back(cell+1);
+  if (cell-1 > 0) adjacent_cells.push_back(cell-1);
+  if (cell + width < cells.size()) adjacent_cells.push_back(cell + width);
+  if (cell - width > 0) adjacent_cells.push_back(cell - width);
+
+  return adjacent_cells[rand() % adjacent_cells.size()];
 }
 
 void Maze::join(int cell1, int cell2) {
   cells[cell1] = cell2;
 }
 
-int Maze::find(int cell) {
+int Maze::find(int cell) const {
   while (cells[cell] != cell)
     cell = cells[cell];
   return cell;
