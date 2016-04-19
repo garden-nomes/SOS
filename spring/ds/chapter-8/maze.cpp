@@ -17,13 +17,14 @@ private:
   int find(int cell) const;
   bool walled(int cell, int adj) const;
   int adjacent(int cell) const;
+
   vector<int> cells;
   int width, height;
 };
 
 /*
  * Public functions
- * -----------------------
+ * -----------------
  */
 
 Maze::Maze(int width, int height)
@@ -59,6 +60,11 @@ string Maze::render() const {
 
   return ret;
 }
+
+/*
+ * Private functions
+ * ------------------
+ */
 
 void Maze::generate() {
   for (int i = 0, adj; i < cells.size()-1; ++i) {
