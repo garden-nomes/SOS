@@ -7,8 +7,8 @@
 char *join_paths(char *path_1, char *path_2) {
   /*
    * joins two paths with '/' if necessary
-   * can handle input like 'path_1/' 'path_2', 'path_1' 'path_2/', or 'path_1/' 'path_2/'
    */
+
   char *retval, *seperator;
 
   if (path_1[strlen(path_1) - 1] == '/' || path_2[0] == '/')
@@ -29,6 +29,7 @@ int depth_first_apply(char *pathname, int pathfun(char *pathname)) {
   /*
    * apply function 'pathfun' to each file in directory
    */
+
   DIR *directory;
   struct dirent *directory_entry;
   char *absolute_path;
@@ -41,7 +42,12 @@ int depth_first_apply(char *pathname, int pathfun(char *pathname)) {
 
   /* iterate over directory */
   while ((directory_entry = readdir(directory)) != NULL) {
-    if ((absolute_path = join_paths(pathname, directory_entry->d_name)) != NULL) {
+    if (strcmp(directory_entry->d_name, ".") == 0
+        || strcmp(directory_entry->d_name, "..") == 0)
+        continue;
+
+    absolute_path = join_paths(pathname, directory_entry->d_name);
+    if (absolute_path != NULL) {
       if ((funret = pathfun(absolute_path)) != -1) ret += funret;
       free(absolute_path);
     }
@@ -81,9 +87,9 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  if ((size = path_size(argv[1])) != -1)
+  if ((size = path_size(argv[1])) == -1)
     return 1;
 
-  printf("%d bytes", size);
+  printf("%d bytes\n", size);
   return 0;
 }
