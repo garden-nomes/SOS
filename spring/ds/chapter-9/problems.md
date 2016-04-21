@@ -80,6 +80,7 @@ have checks to prevent cycles.
 ## Problem 9.32
 
 > a. Write a program to find an Euler circuit in a graph if one exists.
+>
 > b. Write a program to find an Euler tour in a graph if one exists.
 
 ## Problem 9.46
@@ -91,6 +92,7 @@ have checks to prevent cycles.
 ## Problem 9.54
 
 > The clique problem can be stated as follows: Given an undirected graph, G = (V, E), and an integer, K, does G contain a complete subgraph of at least K vertices?
+>
 > The vertex cover problem can be stated as follows: Given an undirected graph, G = (V,E), and an integer, K, does G contain a subset V′ ⊂ V such that |V′| ≤ K and every edge in G has a vertex in V′? Show that the clique problem is polynomially reducible to vertex cover.
 
 9.3, 9.9, 9.15, 9.16, 9.32, 9.46, 9.54
