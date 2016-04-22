@@ -10,7 +10,7 @@ and m edges, it has a complexity of O(n + m), essentially linear time.
 The book uses a queue to cycle through nodes of indegree 0, and I see no reason to modify that.
 I have added code for computing the indegrees of nodes.
 
-```
+```C++
 /* assumes graph maintains the following private members
  * - vector<vector<int>> adjacencies: adjacency list
  *
@@ -68,7 +68,10 @@ of adjacent nodes.
 > a. Find a minimum spanning tree for the graph in Figure 9.84 using both Prim’s and Kruskal’s algorithms.
 > b. Is this minimum spanning tree unique? Why?
 
-(need to do on paper)
+![9.15a](http://i.imgur.com/FSeWNV8.jpg)
+
+b. I'm not quite sure what's meant by "unique". There're certainly other minimum spanning trees like it. But
+   there's more than one MST possible for this particular graph, it that's what you want to know.
 
 ## Problem 9.16
 
