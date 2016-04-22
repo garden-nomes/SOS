@@ -3,7 +3,7 @@
 > Write a program to perform a topological sort on a graph.
 
 There are a few different algorithms one could use for a topological sort, as explained by
-[wikipedia][https://en.wikipedia.org/wiki/Topological_sorting]. The algorithm the book uses
+[wikipedia](https://en.wikipedia.org/wiki/Topological_sorting). The algorithm the book uses
 appears to be a slightly more optimized version of Kahn's algorithm. For a graph of n nodes
 and m edges, it has a complexity of O(n + m), essentially linear time.
 
