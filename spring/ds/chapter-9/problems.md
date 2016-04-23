@@ -66,12 +66,13 @@ of adjacent nodes.
 ## Problem 9.15
 
 > a. Find a minimum spanning tree for the graph in Figure 9.84 using both Prim’s and Kruskal’s algorithms.
-> b. Is this minimum spanning tree unique? Why?
 
 ![9.15a](http://i.imgur.com/FSeWNV8.jpg)
 
-b. I'm not quite sure what's meant by "unique". There're certainly other minimum spanning trees like it. But
-   there's more than one MST possible for this particular graph, it that's what you want to know.
+> b. Is this minimum spanning tree unique? Why?
+
+I'm not quite sure what's meant by "unique". There're certainly other minimum spanning trees like it. But
+there's more than one MST possible for this particular graph, it that's what you want to know.
 
 ## Problem 9.16
 
@@ -83,8 +84,44 @@ have checks to prevent cycles.
 ## Problem 9.32
 
 > a. Write a program to find an Euler circuit in a graph if one exists.
->
+
+My solution is inspired by the Python implementation given
+[here](http://code.activestate.com/recipes/498243-finding-eulerian-path-in-undirected-graph/).
+Nodes are represpented by integer indicies, and the graph is a 2D adjacency list. Assume
+no double entries in the adjacency list (i.e. adjencies[4] might have an entry for 3,
+but adjacencies[3] doesn't have an entry for 4.
+
+```C++
+list<int>& euler_circuit(const vector<list<int>>& adjacencies) {
+  list<int> path;   /* return path */
+  stack<int> stack;   /* stack to keep track of current circuit */
+  vector<list<int>::const_iterator> itrs(adjacencies.size());
+  int node;
+
+  stack.push(0); /* start at node 0 */
+
+  /* initialize iterators list */
+  for (int i = 0; i < adjacencies.size(); ++i)
+    itrs[i] = adjacencies[i].begin();
+
+  while (!stack.empty()) {
+    node = stack.top();
+
+    if (itrs[node] != adjacencies[node].end()) {
+      stack.push(*(itrs[node]));
+      ++(itrs[node]);
+    } else {
+      path.push_back(node);
+      stack.pop()
+    }
+  }
+}
+```
+
 > b. Write a program to find an Euler tour in a graph if one exists.
+
+The program can be modified easily to handle tours by checking for odd edges, and starting
+on the first odd edge found.
 
 ## Problem 9.46
 
