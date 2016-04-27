@@ -1,3 +1,6 @@
+Data Structures Chapter 9 Problems  
+Noah Weiner
+
 ## Problem 9.3
 
 > Write a program to perform a topological sort on a graph.
@@ -67,7 +70,9 @@ of adjacent nodes.
 
 > a. Find a minimum spanning tree for the graph in Figure 9.84 using both Prim’s and Kruskal’s algorithms.
 
-![9.15a](http://i.imgur.com/FSeWNV8.jpg)
+(see figure)
+
+![9.15a][0]
 
 > b. Is this minimum spanning tree unique? Why?
 
@@ -127,7 +132,80 @@ on the first odd edge found.
 
 > Section 8.7 described the generating of mazes. Suppose we want to output the path in the maze. Assume that the maze is represented as a matrix; each cell in the matrix stores information about what walls are present (or absent).
 
-(add pathfinding to project 2!)
+I added pathfinding functionality to the maze class I created for the chapter eight homework. Here's the code:
+
+```C++
+set<int> Maze::shortest_path(int start, int end) const {
+  struct node {
+    int id, prev, dist;
+    bool visited;
+  };
+
+  class node_compare {
+  public:
+    bool operator()(const node *a, const node *b)
+      { return a->dist > b->dist; }
+  };
+
+  node nodes[cells.size()];
+  vector<node *> q;   /* let's just pretend this is a fib heap */
+  set<int> ret;
+  vector<node *> adjacent(4);
+  node *n;
+
+  /* initialize nodes */
+  for (int i = 0; i < cells.size(); ++i) {
+    nodes[i].id = i;
+    nodes[i].prev = -1;
+    nodes[i].dist = i == start ? 0 : INT_MAX;
+    nodes[i].visited = false;
+    q.push_back(&nodes[i]);
+  }
+
+  /* really should use a fib heap though */
+  make_heap(q.begin(), q.end(), node_compare());
+
+  /* run Dijkstra */
+  while (!q.empty()) {
+    n = q.front();
+    pop_heap(q.begin(), q.end());
+    q.pop_back();
+
+    n->visited = true;
+
+    /* find all adjacent cells */
+    adjacent.clear();
+    if ((n->id+1) % width != 0)
+      adjacent.push_back(&nodes[n->id+1]);
+    if (n->id % width != 0)
+      adjacent.push_back(&nodes[n->id-1]);
+    if (n->id + width < cells.size())
+      adjacent.push_back(&nodes[n->id + width]);
+    if (n->id - width > 0)
+      adjacent.push_back(&nodes[n->id - width]);
+
+    for (node *adj : adjacent) {
+       if (!adj->visited && !walled(n->id, adj->id)
+           && n->dist + 1 < adj->dist) {
+         adj->dist = n->dist + 1;
+         adj->prev = n->id;
+       }
+    }
+
+    make_heap(q.begin(), q.end(), node_compare());
+  }
+
+  /* build path */
+  n = &nodes[end];
+  ret.insert(n->id);
+  while (n->prev != -1) {
+    n = &nodes[n->prev];
+    ret.insert(n->id);
+  }
+
+  return ret;
+}
+```
 
 ## Problem 9.54
 
@@ -135,4 +213,22 @@ on the first odd edge found.
 >
 > The vertex cover problem can be stated as follows: Given an undirected graph, G = (V,E), and an integer, K, does G contain a subset V′ ⊂ V such that |V′| ≤ K and every edge in G has a vertex in V′? Show that the clique problem is polynomially reducible to vertex cover.
 
-9.3, 9.9, 9.15, 9.16, 9.32, 9.46, 9.54
+For any graph *G = (V, E)*, let *G' = (V, E')* where *E'* is all edges between nodes *u* and *v* where
+*(u, v)* is not in *E*. Given an integer *k*, if a clique *V'* exists for *G* and *|V'| <= k*, then there
+is a vertex cover *V - V'* in *G'*. That is, all nodes not part of a clique in *G* are part of a
+vertex cover in *G'*.
+
+Suppose that graph *G = (V, E)* has a vertex cover *V'*, and that *|V'| <= k*. For each pair of nodes *u, v*
+in *G*, if both *u* and *v* are in *V'*, then *(u, v)* must be in *E*. If *(u, v)* is in *E'*
+(as defined above), then either *u* or *v* or both aren't in *V'* but in *V - V'*, so that
+*(u, v)* is then covered by *V - V'*. Because this is true for every edge in *E'*, then every
+edge of *E'* is covered by *V - V'*. Therefore, *V - V'* is a vertex cover of graph *G'*, with
+a size of *|V| - k*.
+
+Generating the complementary graph (*G'*) consists of scanning every pair of nodes *(u, v)* and
+determining if *(u, v)* is in *E*. This task can be completed in polynomial time, so therefore
+the clique problem is polynomially reducible to the vertex cover problem.
+
+Source: <http://www.cs.toronto.edu/~ekzhu/teaching/csc373summer2015/tut9.pdf>
+
+[0]: http://i.imgur.com/FSeWNV8.jpg "Problem 9.15a"

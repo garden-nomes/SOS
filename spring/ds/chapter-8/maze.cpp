@@ -54,19 +54,22 @@ string Maze::render(bool path) const {
   for (int i = 0; i < cells.size(); ++i) {
     if (walled(i, i + width) || i + width > cells.size())
       if (path && s_path.count(i) != 0)
-        ret += "\e[4m*\e[0m";
+        ret += "\e[7m_\e[0m";
       else
         ret += "_"; //"\e[4m \e[0m";
     else
       if (path && s_path.count(i) != 0)
-        ret += "*";
+        ret += "\e[7m \e[0m";
       else
         ret += " ";
 
     if ((walled(i, i+1) || (i+1) % width == 0) && i+1 != cells.size())
       ret += "|";
     else
-      ret += ".";
+      if (s_path.count(i) != 0 && s_path.count(i+1) != 0)
+        ret += "\e[7m.\e[0m";
+      else
+        ret += ".";
 
     if ((i+1) % width == 0 && i+1 != cells.size())
       ret += "\n|";
