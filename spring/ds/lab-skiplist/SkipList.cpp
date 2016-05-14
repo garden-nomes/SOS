@@ -24,7 +24,7 @@
 template <class T>
 bool SkipList<T>::find(const T & x) const {
     Node<T> *n = head;
-    int i = head->height - 1;
+    int i = n->height - 1;
 
     while (i >= 0) {
         if (n->next[i] == NULL || x < n->next[i]->data)
